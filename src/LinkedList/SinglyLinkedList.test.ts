@@ -1,10 +1,10 @@
-import { Node, SinglyLinkedList } from "./SinglyLinkedList";
+import { SinglyLinkedNode, SinglyLinkedList } from "./SinglyLinkedList";
 
 describe('Node', () => {
     const value = 111;
-    let node: Node<number>;
+    let node: SinglyLinkedNode<number>;
     beforeEach(() => {
-        node = new Node<number>(value);
+        node = new SinglyLinkedNode<number>(value);
     });
 
     it('should have a value', () => {
@@ -16,13 +16,13 @@ describe('Node', () => {
     });
 
     it('should allow for setting the next property to a node', () => {
-        const nextNode = new Node(12);
+        const nextNode = new SinglyLinkedNode(12);
         node.next = nextNode;
         expect(node.next).toBe(nextNode);
     });
 
     it('should allow for setting the next property to null', () => {
-        const nextNode = new Node(12);
+        const nextNode = new SinglyLinkedNode(12);
         node.next = nextNode;
         node.next = null;
         expect(node.next).toBe(null);
@@ -34,8 +34,8 @@ describe('SinglyLinkedList', () => {
     describe('push', () => {
         it('should push a node', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new Node(1);
-            const node2 = new Node(2);
+            const node1 = new SinglyLinkedNode(1);
+            const node2 = new SinglyLinkedNode(2);
             list.push(node1);
             list.push(node2);
             expect(list.length).toBe(2);
@@ -48,8 +48,8 @@ describe('SinglyLinkedList', () => {
     describe('pop', () => {
         it('should pop a node', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new Node(1);
-            const node2 = new Node(2);
+            const node1 = new SinglyLinkedNode(1);
+            const node2 = new SinglyLinkedNode(2);
             list.push(node1);
             list.push(node2);
             const poppedNode = list.pop();
@@ -68,8 +68,8 @@ describe('SinglyLinkedList', () => {
     describe('insert', () => {
         it('should insert a node', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new Node(1);
-            const node2 = new Node(2);
+            const node1 = new SinglyLinkedNode(1);
+            const node2 = new SinglyLinkedNode(2);
             list.insert(node1);
             list.insert(node2);
             expect(list.length).toBe(2);
@@ -82,8 +82,8 @@ describe('SinglyLinkedList', () => {
     describe('shift', () => {
         it('should shift a node', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new Node(1);
-            const node2 = new Node(2);
+            const node1 = new SinglyLinkedNode(1);
+            const node2 = new SinglyLinkedNode(2);
             list.insert(node1);
             list.insert(node2);
             const shiftedNode = list.shift();
@@ -102,8 +102,8 @@ describe('SinglyLinkedList', () => {
     describe('head/tail', () => {
         it('should return head/tail node respectively', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new Node(1);
-            const node2 = new Node(2);
+            const node1 = new SinglyLinkedNode(1);
+            const node2 = new SinglyLinkedNode(2);
             list.push(node1);
             list.push(node2);
             expect(list.head()).toBe(node1);
