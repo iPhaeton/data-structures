@@ -23,6 +23,16 @@ export class Node<Value = any> implements INode<Value> {
 };
 
 export class SinglyLinkedList<Value = any> implements ISinglyLinkedList<Value> {
+    private _length: number = 0;
+
+    constructor() {
+        this._length = 0;
+    }
+
+    get length(): number {
+        return this._length;
+    }
+
     push(node: INode<Value>): void { };
 
     pop(): void { };
@@ -30,4 +40,6 @@ export class SinglyLinkedList<Value = any> implements ISinglyLinkedList<Value> {
     insert(node: INode<Value>): void { };
 
     shift(): void { };
+
+    get(index: number) { };
 }

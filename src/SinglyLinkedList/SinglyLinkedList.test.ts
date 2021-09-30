@@ -28,3 +28,31 @@ describe('Node', () => {
         expect(node.next).toBe(null);
     })
 });
+
+describe('SinglyLinkedList', () => {
+    describe('push', () => {
+        it('should push a node', () => { });
+    });
+
+    describe('pop', () => {
+        it('should pop a node', () => { });
+
+        it('should handle popping a node when the list is empty', () => { });
+    });
+
+    describe('insert', () => {
+        it('should insert a node', () => { });
+    });
+
+    describe('shift', () => {
+        it('should shift a node', () => { });
+
+        it('should handle shifting a node when the list empty', () => { });
+    });
+
+    describe('get', () => {
+        it('should get a node', () => { });
+
+        it('should return null, if index is out of range', () => { });
+    })
+});
