@@ -12,6 +12,8 @@
         "@typescript-eslint/explicit-module-boundary-types": ["error", { "allowArgumentsExplicitlyTypedAsAny": true }],
         "indent": 2,
         "@typescript-eslint/no-extra-semi": 0,
-        "@typescript-eslint/no-inferrable-types": 0
+        "@typescript-eslint/no-inferrable-types": 0,
+        "@typescript-eslint/no-unused-vars": 1,
+        "no-unused-vars": 1
     }
 }

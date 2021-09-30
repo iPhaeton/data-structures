@@ -24,22 +24,44 @@ export class Node<Value = any> implements INode<Value> {
 
 export class SinglyLinkedList<Value = any> implements ISinglyLinkedList<Value> {
     private _length: number = 0;
+    private _head: INode<Value> | null;
+    private _tail: INode<Value> | null;
 
     constructor() {
         this._length = 0;
+        this._head = null;
+        this._tail = null;
     }
 
     get length(): number {
         return this._length;
     }
 
-    push(node: INode<Value>): void { };
+    push(node: INode<Value>): void {
+        return;
+    };
 
-    pop(): void { };
+    pop(): INode<Value> | null {
+        return null;
+    };
 
-    insert(node: INode<Value>): void { };
+    insert(node: INode<Value>): void {
+        return;
+    };
 
-    shift(): void { };
+    shift(): INode<Value> | null {
+        return null;
+    };
 
-    get(index: number) { };
+    get(index: number): INode<Value> | null {
+        return null;
+    };
+
+    head(): INode<Value> | null {
+        return null;
+    };
+
+    tail(): INode<Value> | null {
+        return null;
+    };
 }

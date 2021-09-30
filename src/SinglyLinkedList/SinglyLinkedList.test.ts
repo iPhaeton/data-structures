@@ -1,4 +1,4 @@
-import { Node } from "./SinglyLinkedList";
+import { Node, SinglyLinkedList } from "./SinglyLinkedList";
 
 describe('Node', () => {
     const value = 111;
@@ -30,29 +30,85 @@ describe('Node', () => {
 });
 
 describe('SinglyLinkedList', () => {
+    
     describe('push', () => {
-        it('should push a node', () => { });
+        it('should push a node', () => {
+            const list = new SinglyLinkedList<number>();
+            const node1 = new Node(1);
+            const node2 = new Node(2);
+            list.push(node1);
+            list.push(node2);
+            expect(list.length).toBe(2);
+            expect(list.get(0)).toBe(node1);
+            expect(list.get(1)).toBe(node2);
+            expect(list.get(2)).toBe(null);
+        });
     });
 
     describe('pop', () => {
-        it('should pop a node', () => { });
+        it('should pop a node', () => {
+            const list = new SinglyLinkedList<number>();
+            const node1 = new Node(1);
+            const node2 = new Node(2);
+            list.push(node1);
+            list.push(node2);
+            const poppedNode = list.pop();
+            expect(poppedNode).toBe(node2);
+            expect(list.length).toBe(1);
+        });
 
-        it('should handle popping a node when the list is empty', () => { });
+        it('should handle popping a node when the list is empty', () => {
+            const list = new SinglyLinkedList<number>();
+            const poppedNode = list.pop();
+            expect(poppedNode).toBe(null);
+            expect(list.length).toBe(0);
+        });
     });
 
     describe('insert', () => {
-        it('should insert a node', () => { });
+        it('should insert a node', () => {
+            const list = new SinglyLinkedList<number>();
+            const node1 = new Node(1);
+            const node2 = new Node(2);
+            list.insert(node1);
+            list.insert(node2);
+            expect(list.length).toBe(2);
+            expect(list.get(0)).toBe(node2);
+            expect(list.get(1)).toBe(node1);
+            expect(list.get(2)).toBe(null);
+        });
     });
 
     describe('shift', () => {
-        it('should shift a node', () => { });
+        it('should shift a node', () => {
+            const list = new SinglyLinkedList<number>();
+            const node1 = new Node(1);
+            const node2 = new Node(2);
+            list.insert(node1);
+            list.insert(node2);
+            const shiftedNode = list.shift();
+            expect(shiftedNode).toBe(node2);
+            expect(list.length).toBe(1);
+        });
 
-        it('should handle shifting a node when the list empty', () => { });
+        it('should handle shifting a node when the list empty', () => {
+            const list = new SinglyLinkedList<number>();
+            const shiftedNode = list.shift();
+            expect(shiftedNode).toBe(null);
+            expect(list.length).toBe(0);
+        });
     });
 
-    describe('get', () => {
-        it('should get a node', () => { });
-
-        it('should return null, if index is out of range', () => { });
-    })
+    describe('head/tail', () => {
+        it('should return head/tail node respectively', () => {
+            const list = new SinglyLinkedList<number>();
+            const node1 = new Node(1);
+            const node2 = new Node(2);
+            list.push(node1);
+            list.push(node2);
+            expect(list.head()).toBe(node1);
+            expect(list.tail()).toBe(node2);
+            expect(list.length).toBe(2);
+        });
+    });
 });

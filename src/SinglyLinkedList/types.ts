@@ -4,8 +4,12 @@ export interface INode<Value> {
 }
 
 export interface ISinglyLinkedList<Value> {
+    length: number;
     push: (node: INode<Value>) => void;
-    pop: () => void;
+    pop: () => INode<Value> | null;
     insert: (node: INode<Value>) => void;
-    shift: () => void;
+    shift: () => INode<Value> | null;
+    get: (index: number) => INode<Value> | null; 
+    head: () => INode<Value> | null;
+    tail: () => INode<Value> | null;
 }
