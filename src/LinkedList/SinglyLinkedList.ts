@@ -39,6 +39,18 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
         return this._length;
     }
 
+    private _getNodeAt(index: number): ISinglyLinkedNode<Value> | null {
+        if (index < 0) {
+            return null;
+        }
+
+        let node = this._head;
+        for (let i = 0; i < index && i < this.length && node !== null; i++) {
+            node = node?.next || null;
+        };
+        return node;
+    }
+
     push(value: Value): SinglyLinkedList<Value> {
         const node = new this._Node(value)
         if (!this._tail) {
@@ -55,16 +67,15 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
     pop(): Value | undefined {
         const nodeToReturn = this._tail;
 
-        let node = this._head;
-        while (node?.next?.next) {
-            node = node.next;
-        }
+        const node = this._getNodeAt(this.length - 2);
 
         if (node) {
             node.next = null;
-            this._tail = node;
-            this._length--;
+        } else {
+            this._head = null;
         }
+        this._tail = node;
+        this._length = Math.max(0, this._length - 1);
 
         return nodeToReturn?.value;
     };

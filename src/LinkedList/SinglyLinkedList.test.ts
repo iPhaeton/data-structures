@@ -30,6 +30,33 @@ describe('Node', () => {
 });
 
 describe('SinglyLinkedList', () => {
+    describe('_getNodeAt', () => {
+        it('should return a node at index', () => {
+            const list = new SinglyLinkedList<number>();
+            list.push(1);
+            list.push(2);
+            const node0 = list['_getNodeAt'](0);
+            const node1 = list['_getNodeAt'](1);
+            const node2 = list['_getNodeAt'](2);
+            expect(node0 instanceof SinglyLinkedNode).toBe(true);
+            expect(node1 instanceof SinglyLinkedNode).toBe(true);
+            expect(node0?.value).toBe(1);
+            expect(node1?.value).toBe(2);
+            expect(node2).toBe(null);
+        });
+
+        it('should return null, if index is negative', () => {
+            const list = new SinglyLinkedList<number>();
+            list.push(1);
+            expect(list['_getNodeAt'](-1)).toBe(null);
+        });
+
+        it('should return null, if the list is empty', () => {
+            const list = new SinglyLinkedList<number>();
+            expect(list['_getNodeAt'](0)).toBe(null);
+        });
+    });
+
     describe('push', () => {
         it('should push a node', () => {
             const list = new SinglyLinkedList<number>();
@@ -54,6 +81,7 @@ describe('SinglyLinkedList', () => {
             const list = new SinglyLinkedList<number>();
             list.push(1);
             const poppedValue = list.pop();
+            expect(list['_getNodeAt'](0)).toBe(null);
             expect(poppedValue).toBe(1);
             expect(list.length).toBe(0);
         });
@@ -90,6 +118,7 @@ describe('SinglyLinkedList', () => {
             const list = new SinglyLinkedList<number>();
             list.insert(1);
             const shiftedValue = list.shift();
+            expect(list['_getNodeAt'](0)).toBe(null);
             expect(shiftedValue).toBe(1);
             expect(list.length).toBe(0);
         });
@@ -120,7 +149,7 @@ describe('SinglyLinkedList', () => {
     });
 
     describe('get', () => {
-        it('should return a node at index', () => {
+        it('should return a value at index', () => {
             const list = new SinglyLinkedList<number>();
             list.push(1);
             list.push(2);
@@ -129,7 +158,13 @@ describe('SinglyLinkedList', () => {
             expect(list.get(2)).toBe(undefined);
         });
 
-        it('shoudl return null, if the list is empty', () => {
+        it('should return undefined, if index is negative', () => {
+            const list = new SinglyLinkedList<number>();
+            list.push(1);
+            expect(list.get(-1)).toBe(undefined);
+        });
+
+        it('should return undefined, if the list is empty', () => {
             const list = new SinglyLinkedList<number>();
             expect(list.get(0)).toBe(undefined);
         });
