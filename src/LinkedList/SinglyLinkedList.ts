@@ -53,7 +53,20 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
     };
 
     pop(): Value | undefined {
-        return;
+        const nodeToReturn = this._tail;
+
+        let node = this._head;
+        while (node?.next?.next) {
+            node = node.next;
+        }
+
+        if (node) {
+            node.next = null;
+            this._tail = node;
+            this._length--;
+        }
+
+        return nodeToReturn?.value;
     };
 
     insert(node: Value): void {
@@ -68,11 +81,11 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
         return;
     };
 
-    head(): Value | undefined {
-        return;
+    get head(): Value | undefined {
+        return this._head?.value;
     };
 
-    tail(): Value | undefined {
-        return;
+    get tail(): Value | undefined {
+        return this._tail?.value;
     };
 }

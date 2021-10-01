@@ -10,8 +10,8 @@ export interface ILinkedList<Value> {
     insert: (value: Value) => void;
     shift: () => Value | undefined;
     get: (index: number) => Value | undefined; 
-    head: () => Value | undefined;
-    tail: () => Value | undefined;
+    head: Value | undefined;
+    tail: Value | undefined;
 }
 
 export interface SinglyLinkedNodeConstructor<Value> {

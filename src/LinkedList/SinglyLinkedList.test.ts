@@ -30,7 +30,6 @@ describe('Node', () => {
 });
 
 describe('SinglyLinkedList', () => {
-    
     describe('push', () => {
         it('should push a node', () => {
             const list = new SinglyLinkedList<number>();
@@ -49,6 +48,14 @@ describe('SinglyLinkedList', () => {
             const poppedValue = list.pop();
             expect(poppedValue).toBe(2);
             expect(list.length).toBe(1);
+        });
+
+        it('should handle popping a node when the list has a single node', () => {
+            const list = new SinglyLinkedList<number>();
+            list.push(1);
+            const poppedValue = list.pop();
+            expect(poppedValue).toBe(1);
+            expect(list.length).toBe(0);
         });
 
         it('should handle popping a node when the list is empty', () => {
@@ -79,6 +86,14 @@ describe('SinglyLinkedList', () => {
             expect(list.length).toBe(1);
         });
 
+        it('should handle shifting a node when the list has a single node', () => {
+            const list = new SinglyLinkedList<number>();
+            list.insert(1);
+            const shiftedValue = list.shift();
+            expect(shiftedValue).toBe(1);
+            expect(list.length).toBe(0);
+        });
+
         it('should handle shifting a node when the list empty', () => {
             const list = new SinglyLinkedList<number>();
             const shiftedNode = list.shift();
@@ -92,15 +107,15 @@ describe('SinglyLinkedList', () => {
             const list = new SinglyLinkedList<number>();
             list.push(1);
             list.push(2);
-            expect(list.head()).toBe(1);
-            expect(list.tail()).toBe(2);
+            expect(list.head).toBe(1);
+            expect(list.tail).toBe(2);
         });
 
         it('if the list has a single node, this node should be both head and tail', () => {
             const list = new SinglyLinkedList<number>();
             list.push(1);
-            expect(list.head()).toBe(1);
-            expect(list.tail()).toBe(1);
+            expect(list.head).toBe(1);
+            expect(list.tail).toBe(1);
         });
     });
 
