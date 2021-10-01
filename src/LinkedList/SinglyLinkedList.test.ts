@@ -34,10 +34,8 @@ describe('SinglyLinkedList', () => {
     describe('push', () => {
         it('should push a node', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new SinglyLinkedNode(1);
-            const node2 = new SinglyLinkedNode(2);
-            let updatedList = list.push(node1);
-            updatedList = list.push(node2);
+            let updatedList = list.push(1);
+            updatedList = list.push(2);
             expect(list.length).toBe(2);
             expect(updatedList).toBe(list);
         });
@@ -46,19 +44,17 @@ describe('SinglyLinkedList', () => {
     describe('pop', () => {
         it('should pop a node', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new SinglyLinkedNode(1);
-            const node2 = new SinglyLinkedNode(2);
-            list.push(node1);
-            list.push(node2);
-            const poppedNode = list.pop();
-            expect(poppedNode).toBe(node2);
+            list.push(1);
+            list.push(2);
+            const poppedValue = list.pop();
+            expect(poppedValue).toBe(2);
             expect(list.length).toBe(1);
         });
 
         it('should handle popping a node when the list is empty', () => {
             const list = new SinglyLinkedList<number>();
             const poppedNode = list.pop();
-            expect(poppedNode).toBe(null);
+            expect(poppedNode).toBe(undefined);
             expect(list.length).toBe(0);
         });
     });
@@ -66,10 +62,8 @@ describe('SinglyLinkedList', () => {
     describe('insert', () => {
         it('should insert a node', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new SinglyLinkedNode(1);
-            const node2 = new SinglyLinkedNode(2);
-            let updatedList = list.insert(node1);
-            updatedList = list.insert(node2);
+            let updatedList = list.insert(1);
+            updatedList = list.insert(2);
             expect(list.length).toBe(2);
             expect(updatedList).toBe(list);
         });
@@ -78,19 +72,17 @@ describe('SinglyLinkedList', () => {
     describe('shift', () => {
         it('should shift a node', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new SinglyLinkedNode(1);
-            const node2 = new SinglyLinkedNode(2);
-            list.insert(node1);
-            list.insert(node2);
-            const shiftedNode = list.shift();
-            expect(shiftedNode).toBe(node2);
+            list.insert(1);
+            list.insert(2);
+            const shiftedValue = list.shift();
+            expect(shiftedValue).toBe(2);
             expect(list.length).toBe(1);
         });
 
         it('should handle shifting a node when the list empty', () => {
             const list = new SinglyLinkedList<number>();
             const shiftedNode = list.shift();
-            expect(shiftedNode).toBe(null);
+            expect(shiftedNode).toBe(undefined);
             expect(list.length).toBe(0);
         });
     });
@@ -98,38 +90,33 @@ describe('SinglyLinkedList', () => {
     describe('head/tail', () => {
         it('should return head/tail node respectively', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new SinglyLinkedNode(1);
-            const node2 = new SinglyLinkedNode(2);
-            list.push(node1);
-            list.push(node2);
-            expect(list.head()).toBe(node1);
-            expect(list.tail()).toBe(node2);
+            list.push(1);
+            list.push(2);
+            expect(list.head()).toBe(1);
+            expect(list.tail()).toBe(2);
         });
 
         it('if the list has a single node, this node should be both head and tail', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new SinglyLinkedNode(1);
-            list.push(node1);
-            expect(list.head()).toBe(node1);
-            expect(list.tail()).toBe(node1);
+            list.push(1);
+            expect(list.head()).toBe(1);
+            expect(list.tail()).toBe(1);
         });
     });
 
     describe('get', () => {
         it('should return a node at index', () => {
             const list = new SinglyLinkedList<number>();
-            const node1 = new SinglyLinkedNode(1);
-            const node2 = new SinglyLinkedNode(2);
-            list.push(node1);
-            list.push(node2);
-            expect(list.get(0)).toBe(node1);
-            expect(list.get(1)).toBe(node2);
-            expect(list.get(2)).toBe(null);
+            list.push(1);
+            list.push(2);
+            expect(list.get(0)).toBe(1);
+            expect(list.get(1)).toBe(2);
+            expect(list.get(2)).toBe(undefined);
         });
 
         it('shoudl return null, if the list is empty', () => {
             const list = new SinglyLinkedList<number>();
-            expect(list.get(0)).toBe(null);
+            expect(list.get(0)).toBe(undefined);
         });
     });
 });

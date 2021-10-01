@@ -1,4 +1,4 @@
-import { ISinglyLinkedNode, ILinkedList } from "./types";
+import { ISinglyLinkedNode, ILinkedList, SinglyLinkedNodeConstructor } from "./types";
 
 export class SinglyLinkedNode<Value = any> implements ISinglyLinkedNode<Value> {
     private _value: Value;
@@ -22,12 +22,14 @@ export class SinglyLinkedNode<Value = any> implements ISinglyLinkedNode<Value> {
     }
 };
 
-export class SinglyLinkedList<Value> implements ILinkedList<ISinglyLinkedNode<Value>> {
-    private _length: number = 0;
+export class SinglyLinkedList<Value> implements ILinkedList<Value> {
+    private _Node: SinglyLinkedNodeConstructor<Value>;
+    private _length: number;
     private _head: ISinglyLinkedNode<Value> | null;
     private _tail: ISinglyLinkedNode<Value> | null;
 
-    constructor() {
+    constructor(Node: SinglyLinkedNodeConstructor<Value> = SinglyLinkedNode) {
+        this._Node = Node;
         this._length = 0;
         this._head = null;
         this._tail = null;
@@ -37,7 +39,8 @@ export class SinglyLinkedList<Value> implements ILinkedList<ISinglyLinkedNode<Va
         return this._length;
     }
 
-    push(node: ISinglyLinkedNode<Value>): SinglyLinkedList<Value> {
+    push(value: Value): SinglyLinkedList<Value> {
+        const node = new this._Node(value)
         if (!this._tail) {
             this._head = node;
             this._tail = node;
@@ -49,27 +52,27 @@ export class SinglyLinkedList<Value> implements ILinkedList<ISinglyLinkedNode<Va
         return this;
     };
 
-    pop(): ISinglyLinkedNode<Value> | null {
-        return null;
-    };
-
-    insert(node: ISinglyLinkedNode<Value>): void {
+    pop(): Value | undefined {
         return;
     };
 
-    shift(): ISinglyLinkedNode<Value> | null {
-        return null;
+    insert(node: Value): void {
+        return;
     };
 
-    get(index: number): ISinglyLinkedNode<Value> | null {
-        return null;
+    shift(): Value | undefined {
+        return;
     };
 
-    head(): ISinglyLinkedNode<Value> | null {
-        return null;
+    get(index: number): Value | undefined {
+        return;
     };
 
-    tail(): ISinglyLinkedNode<Value> | null {
-        return null;
+    head(): Value | undefined {
+        return;
+    };
+
+    tail(): Value | undefined {
+        return;
     };
 }

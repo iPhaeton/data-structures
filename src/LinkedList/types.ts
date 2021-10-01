@@ -3,13 +3,17 @@ export interface ISinglyLinkedNode<Value> {
     next: ISinglyLinkedNode<Value> | null;
 }
 
-export interface ILinkedList<Node> {
+export interface ILinkedList<Value> {
     length: number;
-    push: (node: Node) => void;
-    pop: () => Node | null;
-    insert: (node: Node) => void;
-    shift: () => Node | null;
-    get: (index: number) => Node | null; 
-    head: () => Node | null;
-    tail: () => Node | null;
+    push: (value: Value) => void;
+    pop: () => Value | undefined;
+    insert: (value: Value) => void;
+    shift: () => Value | undefined;
+    get: (index: number) => Value | undefined; 
+    head: () => Value | undefined;
+    tail: () => Value | undefined;
+}
+
+export interface SinglyLinkedNodeConstructor<Value> {
+    new (value: Value): ISinglyLinkedNode<Value>;
 }
