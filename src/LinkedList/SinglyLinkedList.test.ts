@@ -74,6 +74,7 @@ describe('SinglyLinkedList', () => {
             list.push(2);
             const poppedValue = list.pop();
             expect(poppedValue).toBe(2);
+            expect(list.tail).toBe(1);
             expect(list.length).toBe(1);
         });
 
@@ -81,7 +82,8 @@ describe('SinglyLinkedList', () => {
             const list = new SinglyLinkedList<number>();
             list.push(1);
             const poppedValue = list.pop();
-            expect(list['_getNodeAt'](0)).toBe(null);
+            expect(list.head).toBe(undefined);
+            expect(list.tail).toBe(undefined);
             expect(poppedValue).toBe(1);
             expect(list.length).toBe(0);
         });
@@ -110,15 +112,17 @@ describe('SinglyLinkedList', () => {
             list.insert(1);
             list.insert(2);
             const shiftedValue = list.shift();
-            expect(shiftedValue).toBe(2);
-            expect(list.length).toBe(1);
+            expect(shiftedValue).toBe(1);
+            expect(list.head).toBe(2);
+            expect(list.length).toBe(2);
         });
 
         it('should handle shifting a node when the list has a single node', () => {
             const list = new SinglyLinkedList<number>();
             list.insert(1);
             const shiftedValue = list.shift();
-            expect(list['_getNodeAt'](0)).toBe(null);
+            expect(list.head).toBe(undefined);
+            expect(list.tail).toBe(undefined);
             expect(shiftedValue).toBe(1);
             expect(list.length).toBe(0);
         });

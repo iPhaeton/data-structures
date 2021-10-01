@@ -68,13 +68,12 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
         const nodeToReturn = this._tail;
 
         const node = this._getNodeAt(this.length - 2);
-
-        if (node) {
-            node.next = null;
+        this._tail = node;
+        if (this._tail) {
+            this._tail.next = null;
         } else {
             this._head = null;
         }
-        this._tail = node;
         this._length = Math.max(0, this._length - 1);
 
         return nodeToReturn?.value;
