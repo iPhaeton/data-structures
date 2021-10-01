@@ -1,6 +1,6 @@
-export interface ISinglyLonkedNode<Value> {
+export interface ISinglyLinkedNode<Value> {
     value: Value;
-    next: ISinglyLonkedNode<Value> | null;
+    next: ISinglyLinkedNode<Value> | null;
 }
 
 export interface ILinkedList<Node> {

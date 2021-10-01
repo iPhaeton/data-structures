@@ -1,8 +1,8 @@
-import { ISinglyLonkedNode, ILinkedList } from "./types";
+import { ISinglyLinkedNode, ILinkedList } from "./types";
 
-export class SinglyLinkedNode<Value = any> implements ISinglyLonkedNode<Value> {
+export class SinglyLinkedNode<Value = any> implements ISinglyLinkedNode<Value> {
     private _value: Value;
-    private _next: ISinglyLonkedNode<Value> | null;
+    private _next: ISinglyLinkedNode<Value> | null;
 
     constructor(value: Value) {
         this._value = value;
@@ -13,19 +13,19 @@ export class SinglyLinkedNode<Value = any> implements ISinglyLonkedNode<Value> {
         return this._value;
     }
 
-    get next(): ISinglyLonkedNode<Value> | null {
+    get next(): ISinglyLinkedNode<Value> | null {
         return this._next;
     }
 
-    set next(next: ISinglyLonkedNode<Value> | null) {
+    set next(next: ISinglyLinkedNode<Value> | null) {
         this._next = next;
     }
 };
 
-export class SinglyLinkedList<Value> implements ILinkedList<ISinglyLonkedNode<Value>> {
+export class SinglyLinkedList<Value> implements ILinkedList<ISinglyLinkedNode<Value>> {
     private _length: number = 0;
-    private _head: ISinglyLonkedNode<Value> | null;
-    private _tail: ISinglyLonkedNode<Value> | null;
+    private _head: ISinglyLinkedNode<Value> | null;
+    private _tail: ISinglyLinkedNode<Value> | null;
 
     constructor() {
         this._length = 0;
@@ -37,31 +37,39 @@ export class SinglyLinkedList<Value> implements ILinkedList<ISinglyLonkedNode<Va
         return this._length;
     }
 
-    push(node: ISinglyLonkedNode<Value>): void {
+    push(node: ISinglyLinkedNode<Value>): SinglyLinkedList<Value> {
+        if (!this._tail) {
+            this._head = node;
+            this._tail = node;
+        } else {
+            this._tail.next = node;
+            this._tail = node;
+        }
+        this._length++;
+        return this;
+    };
+
+    pop(): ISinglyLinkedNode<Value> | null {
+        return null;
+    };
+
+    insert(node: ISinglyLinkedNode<Value>): void {
         return;
     };
 
-    pop(): ISinglyLonkedNode<Value> | null {
+    shift(): ISinglyLinkedNode<Value> | null {
         return null;
     };
 
-    insert(node: ISinglyLonkedNode<Value>): void {
-        return;
-    };
-
-    shift(): ISinglyLonkedNode<Value> | null {
+    get(index: number): ISinglyLinkedNode<Value> | null {
         return null;
     };
 
-    get(index: number): ISinglyLonkedNode<Value> | null {
+    head(): ISinglyLinkedNode<Value> | null {
         return null;
     };
 
-    head(): ISinglyLonkedNode<Value> | null {
-        return null;
-    };
-
-    tail(): ISinglyLonkedNode<Value> | null {
+    tail(): ISinglyLinkedNode<Value> | null {
         return null;
     };
 }
