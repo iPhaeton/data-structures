@@ -109,7 +109,7 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
     };
 
     get(index: number): Value | undefined {
-        return;
+        return this._getNodeAt(index)?.value;
     };
 
     get head(): Value | undefined {
