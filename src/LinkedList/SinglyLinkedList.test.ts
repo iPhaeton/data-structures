@@ -112,9 +112,9 @@ describe('SinglyLinkedList', () => {
             list.insert(1);
             list.insert(2);
             const shiftedValue = list.shift();
-            expect(shiftedValue).toBe(1);
-            expect(list.head).toBe(2);
-            expect(list.length).toBe(2);
+            expect(shiftedValue).toBe(2);
+            expect(list.head).toBe(1);
+            expect(list.length).toBe(1);
         });
 
         it('should handle shifting a node when the list has a single node', () => {

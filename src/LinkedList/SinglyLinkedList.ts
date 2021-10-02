@@ -51,6 +51,13 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
         return node;
     }
 
+    private _reconsile(): void {
+        if (this._head === null || this._tail === null) {
+            this._head = null;
+            this._tail = null;
+        }
+    }
+
     push(value: Value): SinglyLinkedList<Value> {
         const node = new this._Node(value)
         if (!this._tail) {
@@ -71,20 +78,34 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
         this._tail = node;
         if (this._tail) {
             this._tail.next = null;
-        } else {
-            this._head = null;
         }
+        this._reconsile();
         this._length = Math.max(0, this._length - 1);
 
         return nodeToReturn?.value;
     };
 
-    insert(node: Value): void {
-        return;
+    insert(value: Value): SinglyLinkedList<Value> {
+        const node = new this._Node(value)
+        if (!this._head) {
+            this._head = node;
+            this._tail = node;
+        } else {
+            node.next = this._head;
+            this._head = node;
+        }
+        this._length++;
+        return this;
     };
 
     shift(): Value | undefined {
-        return;
+        const node = this._head;
+        if (node) {
+            this._head = node.next;
+        }
+        this._reconsile();
+        this._length = Math.max(0, this._length - 1);
+        return node?.value;
     };
 
     get(index: number): Value | undefined {
