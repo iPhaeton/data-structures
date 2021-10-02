@@ -40,7 +40,7 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
     }
 
     private _getNodeAt(index: number): ISinglyLinkedNode<Value> | null {
-        if (index < 0) {
+        if (index < 0 || index > this.length) {
             return null;
         }
 
@@ -99,7 +99,7 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
     };
 
     shift(): Value | undefined {
-        const node = this._head;
+        const node = this._getNodeAt(0);
         if (node) {
             this._head = node.next;
         }
