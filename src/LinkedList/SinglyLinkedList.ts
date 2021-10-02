@@ -85,7 +85,7 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
         return nodeToReturn?.value;
     };
 
-    insert(value: Value): SinglyLinkedList<Value> {
+    unshift(value: Value): SinglyLinkedList<Value> {
         const node = new this._Node(value)
         if (!this._head) {
             this._head = node;

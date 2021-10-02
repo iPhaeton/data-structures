@@ -7,7 +7,7 @@ export interface ILinkedList<Value> {
     length: number;
     push: (value: Value) => ILinkedList<Value>;
     pop: () => Value | undefined;
-    insert: (value: Value) => ILinkedList<Value>;
+    unshift: (value: Value) => ILinkedList<Value>;
     shift: () => Value | undefined;
     get: (index: number) => Value | undefined; 
     head: Value | undefined;

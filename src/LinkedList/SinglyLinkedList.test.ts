@@ -96,11 +96,11 @@ describe('SinglyLinkedList', () => {
         });
     });
 
-    describe('insert', () => {
-        it('should insert a node', () => {
+    describe('unshift', () => {
+        it('should unshift a node', () => {
             const list = new SinglyLinkedList<number>();
-            let updatedList = list.insert(1);
-            updatedList = list.insert(2);
+            let updatedList = list.unshift(1);
+            updatedList = list.unshift(2);
             expect(list.length).toBe(2);
             expect(updatedList).toBe(list);
         });
@@ -109,8 +109,8 @@ describe('SinglyLinkedList', () => {
     describe('shift', () => {
         it('should shift a node', () => {
             const list = new SinglyLinkedList<number>();
-            list.insert(1);
-            list.insert(2);
+            list.unshift(1);
+            list.unshift(2);
             const shiftedValue = list.shift();
             expect(shiftedValue).toBe(2);
             expect(list.head).toBe(1);
@@ -119,7 +119,7 @@ describe('SinglyLinkedList', () => {
 
         it('should handle shifting a node when the list has a single node', () => {
             const list = new SinglyLinkedList<number>();
-            list.insert(1);
+            list.unshift(1);
             const shiftedValue = list.shift();
             expect(list.head).toBe(undefined);
             expect(list.tail).toBe(undefined);
