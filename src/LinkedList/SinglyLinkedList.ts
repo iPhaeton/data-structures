@@ -13,6 +13,10 @@ export class SinglyLinkedNode<Value = any> implements ISinglyLinkedNode<Value> {
         return this._value;
     }
 
+    set value(newValue: Value) {
+        this._value = newValue;
+    }
+
     get next(): ISinglyLinkedNode<Value> | null {
         return this._next;
     }
@@ -111,6 +115,17 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
     get(index: number): Value | undefined {
         return this._getNodeAt(index)?.value;
     };
+
+    set(index: number, value: Value): boolean {
+        const node = this._getNodeAt(index);
+
+        if (node) {
+            node.value = value;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     get head(): Value | undefined {
         return this._head?.value;

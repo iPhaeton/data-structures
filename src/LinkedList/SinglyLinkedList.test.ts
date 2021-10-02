@@ -11,6 +11,12 @@ describe('Node', () => {
         expect(node.value).toBe(value);
     });
 
+    it('should allow for changing the value', () => {
+        const anoterValue = value + 1;
+        node.value = anoterValue;
+        expect(node.value).toBe(anoterValue);
+    });
+
     it('should have pointer to the next node', () => {
         expect(node.next).toBe(null);
     });
@@ -146,4 +152,37 @@ describe('SinglyLinkedList', () => {
             expect(list.get(0)).toBe(undefined);
         });
     });
+
+    describe('set', () => {
+        it('should update a value at a given index and return true', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            const isSet = list.set(0, 3);
+            expect(isSet).toBe(true);
+            expect(list.get(0)).toBe(3);
+            expect(list.get(1)).toBe(2);
+            expect(list.length).toBe(2);
+        });
+
+        it('should return false, if the index is put of range', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            const isSet = list.set(3, 3);
+            expect(isSet).toBe(false);
+            expect(list.get(0)).toBe(1);
+            expect(list.get(1)).toBe(2);
+            expect(list.length).toBe(2);
+        });
+
+        it('should return false, if called on an empty list', () => {
+            const list = new SinglyLinkedList();
+            const isSet = list.set(0, 3);
+            expect(isSet).toBe(false);
+            expect(list.head).toBe(undefined);
+            expect(list.tail).toBe(undefined);
+            expect(list.length).toBe(0);
+        });
+    })
 });

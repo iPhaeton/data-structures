@@ -9,11 +9,12 @@ export interface ILinkedList<Value> {
     pop: () => Value | undefined;
     unshift: (value: Value) => ILinkedList<Value>;
     shift: () => Value | undefined;
-    get: (index: number) => Value | undefined; 
+    get: (index: number) => Value | undefined;
+    set: (index: number, value: Value) => boolean;
     head: Value | undefined;
     tail: Value | undefined;
 }
 
 export interface SinglyLinkedNodeConstructor<Value> {
-    new (value: Value): ISinglyLinkedNode<Value>;
+    new(value: Value): ISinglyLinkedNode<Value>;
 }
