@@ -127,6 +127,10 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
         }
     }
 
+    insert(index: number, value: Value): boolean {
+        return false;
+    }
+
     get head(): Value | undefined {
         return this._head?.value;
     };

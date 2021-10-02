@@ -184,5 +184,48 @@ describe('SinglyLinkedList', () => {
             expect(list.tail).toBe(undefined);
             expect(list.length).toBe(0);
         });
-    })
+    });
+
+    describe('insert', () => {
+        it('should insert a value into the list', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            list.insert(1, 1.5);
+            expect(list.length).toBe(3);
+            expect(list.head).toBe(1);
+            expect(list.get(1)).toBe(1.5);
+            expect(list.tail).toBe(2);
+        });
+
+        it('should insert a value into an empty list', () => {
+            const list = new SinglyLinkedList();
+            list.insert(0, 1);
+            expect(list.length).toBe(1);
+            expect(list.head).toBe(1);
+            expect(list.tail).toBe(2);
+        });
+
+        it('should insert a value into the beginning of the list', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            list.insert(0, 0.5);
+            expect(list.length).toBe(3);
+            expect(list.head).toBe(0.5);
+            expect(list.get(1)).toBe(1);
+            expect(list.tail).toBe(2);
+        });
+
+        it('should insert a value into the end of the list', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            list.insert(list.length, 2.5);
+            expect(list.length).toBe(3);
+            expect(list.head).toBe(1);
+            expect(list.get(1)).toBe(2);
+            expect(list.tail).toBe(2.5);
+        });
+    });
 });
