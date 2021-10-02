@@ -191,7 +191,8 @@ describe('SinglyLinkedList', () => {
             const list = new SinglyLinkedList();
             list.push(1);
             list.push(2);
-            list.insert(1, 1.5);
+            const inserted = list.insert(1, 1.5);
+            expect(inserted).toBe(true);
             expect(list.length).toBe(3);
             expect(list.head).toBe(1);
             expect(list.get(1)).toBe(1.5);
@@ -200,17 +201,29 @@ describe('SinglyLinkedList', () => {
 
         it('should insert a value into an empty list', () => {
             const list = new SinglyLinkedList();
-            list.insert(0, 1);
+            const inserted = list.insert(0, 1);
+            expect(inserted).toBe(true);
             expect(list.length).toBe(1);
             expect(list.head).toBe(1);
-            expect(list.tail).toBe(2);
+            expect(list.tail).toBe(1);
+        });
+
+        it('should insert a value into the beginning a single node list', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            const inserted = list.insert(0, 0.5);
+            expect(inserted).toBe(true);
+            expect(list.length).toBe(2);
+            expect(list.head).toBe(0.5);
+            expect(list.tail).toBe(1);
         });
 
         it('should insert a value into the beginning of the list', () => {
             const list = new SinglyLinkedList();
             list.push(1);
             list.push(2);
-            list.insert(0, 0.5);
+            const inserted = list.insert(0, 0.5);
+            expect(inserted).toBe(true);
             expect(list.length).toBe(3);
             expect(list.head).toBe(0.5);
             expect(list.get(1)).toBe(1);
@@ -221,11 +234,30 @@ describe('SinglyLinkedList', () => {
             const list = new SinglyLinkedList();
             list.push(1);
             list.push(2);
-            list.insert(list.length, 2.5);
+            const inserted = list.insert(list.length, 2.5);
+            expect(inserted).toBe(true);
             expect(list.length).toBe(3);
             expect(list.head).toBe(1);
             expect(list.get(1)).toBe(2);
             expect(list.tail).toBe(2.5);
+        });
+
+        it('should return false, if the index is out of range', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.insert(10, 2);
+            expect(list.length).toBe(1);
+            expect(list.head).toBe(1);
+            expect(list.tail).toBe(1);
+        });
+
+        it('should return false, if the index is < 0', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.insert(10, 2);
+            expect(list.length).toBe(1);
+            expect(list.head).toBe(1);
+            expect(list.tail).toBe(1);
         });
     });
 });

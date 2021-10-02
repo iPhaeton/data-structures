@@ -128,7 +128,24 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
     }
 
     insert(index: number, value: Value): boolean {
-        return false;
+        if (index === 0) {
+            this.unshift(value);
+            return true;
+        } else if (index === this.length) {
+            this.push(value);
+            return true;
+        } else {
+            const previous = this._getNodeAt(index - 1);
+            if (previous) {
+                const node = new SinglyLinkedNode(value);
+                node.next = previous.next;
+                previous.next = node;
+                this._length++;
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     get head(): Value | undefined {
