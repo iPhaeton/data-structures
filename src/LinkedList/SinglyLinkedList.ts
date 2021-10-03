@@ -165,6 +165,10 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
         }
     }
 
+    reverse(): SinglyLinkedList<Value> {
+        return this;
+    }
+
     get head(): Value | undefined {
         return this._head?.value;
     };

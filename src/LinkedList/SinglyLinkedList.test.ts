@@ -329,4 +329,41 @@ describe('SinglyLinkedList', () => {
             expect(list.length).toBe(1);
         });
     });
+
+    describe('reverse', () => {
+        it('should reverse a list in place', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            list.push(3);
+            list.reverse();
+            expect(list.head).toBe(3);
+            expect(list.get(1)).toBe(2);
+            expect(list.tail).toBe(1);
+        });
+
+        it('should reverse a two element list', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            list.reverse();
+            expect(list.head).toBe(2);
+            expect(list.tail).toBe(1);
+        });
+        
+        it('should do nothing with a single alement list', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.reverse();
+            expect(list.head).toBe(1);
+            expect(list.tail).toBe(1);
+        });
+        
+        it('should do nothing with an empty list', () => {
+            const list = new SinglyLinkedList();
+            list.reverse();
+            expect(list.head).toBe(undefined);
+            expect(list.tail).toBe(undefined);
+        });
+    })
 });
