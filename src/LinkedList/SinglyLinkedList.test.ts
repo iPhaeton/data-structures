@@ -267,7 +267,7 @@ describe('SinglyLinkedList', () => {
             list.push(1);
             list.push(2);
             list.push(3);
-            const removedValue = list.insert(1, 1.5);
+            const removedValue = list.remove(1);
             expect(removedValue).toBe(2);
             expect(list.length).toBe(2);
             expect(list.head).toBe(1);

@@ -149,7 +149,20 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
     }
 
     remove(index: number): Value | undefined {
-        return;
+        if (index === 0) {
+            return this.shift();
+        } else if (index === this.length - 1) {
+            return this.pop();
+        } else {
+            const parent = this._getNodeAt(index - 1);
+            const node = parent?.next;
+
+            if (node) {
+                parent.next = node.next;
+                this._length--;
+            }
+            return node?.value;
+        }
     }
 
     get head(): Value | undefined {
