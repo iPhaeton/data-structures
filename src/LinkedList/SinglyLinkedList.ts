@@ -166,7 +166,21 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
     }
 
     reverse(): SinglyLinkedList<Value> {
+        let prevNode = null;
+        let node = this._head;
+        let nextNode = node?.next || null;
+        while (node !== null) {
+            node.next = prevNode;
+            prevNode = node;
+            node = nextNode;
+            nextNode = nextNode?.next || null;
+        }
+        [this._head, this._tail] = [this._tail, this._head];
         return this;
+    }
+
+    print(): string {
+        return `SinglyLinkedList(${[...this].join(',')})`;
     }
 
     get head(): Value | undefined {
@@ -176,4 +190,19 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
     get tail(): Value | undefined {
         return this._tail?.value;
     };
+
+    [Symbol.iterator](): Iterator<Value, Value> {
+        let currentNode = this._head;
+
+        return {
+            next(): IteratorResult<Value, Value> {
+                const returnValue = {
+                    value: currentNode?.value,
+                    done: currentNode === null,
+                }
+                currentNode = currentNode?.next || null;
+                return returnValue as IteratorResult<Value, Value>;
+            }
+        }
+    }
 }

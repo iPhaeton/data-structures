@@ -5,6 +5,8 @@ export interface ISinglyLinkedNode<Value> {
 
 export interface ILinkedList<Value> {
     length: number;
+    head: Value | undefined;
+    tail: Value | undefined;
     push: (value: Value) => ILinkedList<Value>;
     pop: () => Value | undefined;
     unshift: (value: Value) => ILinkedList<Value>;
@@ -14,8 +16,7 @@ export interface ILinkedList<Value> {
     insert: (index: number, value: Value) => boolean;
     remove: (index: number) => Value | undefined;
     reverse: () => ILinkedList<Value>;
-    head: Value | undefined;
-    tail: Value | undefined;
+    print: () => string;
 }
 
 export interface SinglyLinkedNodeConstructor<Value> {

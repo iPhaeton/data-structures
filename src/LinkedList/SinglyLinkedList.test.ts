@@ -36,6 +36,14 @@ describe('Node', () => {
 });
 
 describe('SinglyLinkedList', () => {
+    it('should be iterable', () => {
+        const list = new SinglyLinkedList();
+        list.push(1);
+        list.push(2);
+        list.push(3);
+        expect([...list]).toEqual([1, 2, 3]);
+    });
+
     describe('push', () => {
         it('should push a node', () => {
             const list = new SinglyLinkedList<number>();
@@ -350,7 +358,7 @@ describe('SinglyLinkedList', () => {
             expect(list.head).toBe(2);
             expect(list.tail).toBe(1);
         });
-        
+
         it('should do nothing with a single alement list', () => {
             const list = new SinglyLinkedList();
             list.push(1);
@@ -358,12 +366,26 @@ describe('SinglyLinkedList', () => {
             expect(list.head).toBe(1);
             expect(list.tail).toBe(1);
         });
-        
+
         it('should do nothing with an empty list', () => {
             const list = new SinglyLinkedList();
             list.reverse();
             expect(list.head).toBe(undefined);
             expect(list.tail).toBe(undefined);
         });
-    })
+    });
+
+    describe('print', () => {
+        it('should print SinglyLinkedList(1,2,3)', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            list.push(3);
+            expect(list.print()).toBe('SinglyLinkedList(1,2,3)');
+        });
+        it('should print SinglyLinkedList()', () => {
+            const list = new SinglyLinkedList();
+            expect(list.print()).toBe('SinglyLinkedList()');
+        });
+    });
 });
