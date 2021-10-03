@@ -148,6 +148,10 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
         }
     }
 
+    remove(index: number): Value | undefined {
+        return;
+    }
+
     get head(): Value | undefined {
         return this._head?.value;
     };

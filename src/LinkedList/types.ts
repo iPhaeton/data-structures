@@ -12,6 +12,7 @@ export interface ILinkedList<Value> {
     get: (index: number) => Value | undefined;
     set: (index: number, value: Value) => boolean;
     insert: (index: number, value: Value) => boolean;
+    remove: (index: number) => Value | undefined;
     head: Value | undefined;
     tail: Value | undefined;
 }

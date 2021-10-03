@@ -251,13 +251,82 @@ describe('SinglyLinkedList', () => {
             expect(list.tail).toBe(1);
         });
 
-        it('should return false, if the index is < 0', () => {
+        it('should return false, if the index is negative', () => {
             const list = new SinglyLinkedList();
             list.push(1);
-            list.insert(10, 2);
+            list.insert(-1, 2);
             expect(list.length).toBe(1);
             expect(list.head).toBe(1);
             expect(list.tail).toBe(1);
+        });
+    });
+
+    describe('remove', () => {
+        it('should remove a value from the list and return it', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            list.push(3);
+            const removedValue = list.insert(1, 1.5);
+            expect(removedValue).toBe(2);
+            expect(list.length).toBe(2);
+            expect(list.head).toBe(1);
+            expect(list.tail).toBe(3);
+        });
+
+        it('should return undefined, if trying to remove a value from an empty list', () => {
+            const list = new SinglyLinkedList();
+            const removedValue = list.remove(0);
+            expect(removedValue).toBe(undefined);
+            expect(list.length).toBe(0);
+        });
+
+        it('should remove a value from a single node list', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            const removedValue = list.remove(0);
+            expect(removedValue).toBe(1);
+            expect(list.length).toBe(0);
+            expect(list.head).toBe(undefined);
+            expect(list.tail).toBe(undefined);
+        });
+
+        it('should remove a value from the beginning of the list', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            const removedValue = list.remove(0);
+            expect(removedValue).toBe(1);
+            expect(list.length).toBe(1);
+            expect(list.head).toBe(2);
+            expect(list.tail).toBe(2);
+        });
+
+        it('should remove a value from the end of the list', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            list.push(2);
+            const removedValue = list.remove(list.length - 1);
+            expect(removedValue).toBe(2);
+            expect(list.length).toBe(1);
+            expect(list.head).toBe(1);
+            expect(list.tail).toBe(1);
+        });
+
+        it('should return undefined, if the index is out of range', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            const removedValue = list.remove(10);
+            expect(removedValue).toBe(undefined);
+            expect(list.length).toBe(1);
+        });
+
+        it('should return undefined, if the index is negative', () => {
+            const list = new SinglyLinkedList();
+            list.push(1);
+            const removedValue = list.remove(-1);
+            expect(removedValue).toBe(undefined);
+            expect(list.length).toBe(1);
         });
     });
 });
