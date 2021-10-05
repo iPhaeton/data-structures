@@ -3,6 +3,20 @@ export interface ISinglyLinkedNode<Value> {
     next: ISinglyLinkedNode<Value> | null;
 }
 
+export interface SinglyLinkedNodeConstructor<Value> {
+    new(value: Value): ISinglyLinkedNode<Value>;
+}
+
+export interface IDoublyLinkedNode<Value> {
+    value: Value;
+    next: IDoublyLinkedNode<Value> | null;
+    prev: IDoublyLinkedNode<Value> | null;
+}
+
+export interface DoublyLinkedNodeConstructor<Value> {
+    new(value: Value): IDoublyLinkedNode<Value>;
+}
+
 export interface ILinkedList<Value> {
     length: number;
     head: Value | undefined;
@@ -17,8 +31,4 @@ export interface ILinkedList<Value> {
     remove: (index: number) => Value | undefined;
     reverse: () => ILinkedList<Value>;
     print: () => string;
-}
-
-export interface SinglyLinkedNodeConstructor<Value> {
-    new(value: Value): ISinglyLinkedNode<Value>;
 }

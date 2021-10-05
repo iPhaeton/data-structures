@@ -1,6 +1,6 @@
 import { SinglyLinkedNode, SinglyLinkedList } from "./SinglyLinkedList";
 
-describe('Node', () => {
+describe('SinglyLinkedNode', () => {
     const value = 111;
     let node: SinglyLinkedNode<number>;
     beforeEach(() => {
