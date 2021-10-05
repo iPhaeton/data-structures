@@ -1,4 +1,4 @@
-import { DoublyLinkedNode } from "./DoublyLinkedList";
+import { DoublyLinkedList, DoublyLinkedNode } from "./DoublyLinkedList";
 import { IDoublyLinkedNode } from "./types";
 
 describe('DoublyLinkedNode', () => {
@@ -50,5 +50,12 @@ describe('DoublyLinkedNode', () => {
         node.prev = prevNode;
         node.prev = null;
         expect(node.prev).toBe(null);
+    });
+});
+
+describe('DoublyLinkedList', () => {
+    let list: DoublyLinkedList<number>;
+    beforeEach(() => {
+        list = new DoublyLinkedList();
     });
 });
