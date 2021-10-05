@@ -3,6 +3,7 @@ import { LinkedListConstructor } from "../types";
 export const createLinkedListTests = (
     name: 'SinglyLinkedList' | 'DoublyLinkedList',
     Constructor: LinkedListConstructor<number>,
+    testInvariant: (list: any) => void,
 ): any => {
     return describe(name, () => {
         let list: any;
@@ -23,6 +24,9 @@ export const createLinkedListTests = (
                 updatedList = list.push(2);
                 expect(list.length).toBe(2);
                 expect(updatedList).toBe(list);
+                expect(list.head).toBe(1);
+                expect(list.tail).toBe(2);
+                expect(() => testInvariant(updatedList)).not.toThrow();
             });
         });
 

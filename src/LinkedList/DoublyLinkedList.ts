@@ -61,7 +61,17 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
         return this._tail?.value;
     };
 
-    push(value: Value): ILinkedList<Value> {
+    push(value: Value): DoublyLinkedList<Value> {
+        const node = new this._Node(value);
+        if (!this._tail) {
+            this._head = node;
+            this._tail = node;
+        } else {
+            this._tail.next = node;
+            node.prev = this._tail;
+            this._tail = node;
+        }
+        this._length++;
         return this;
     };
 
