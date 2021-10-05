@@ -31,4 +31,9 @@ export interface ILinkedList<Value> {
     remove: (index: number) => Value | undefined;
     reverse: () => ILinkedList<Value>;
     print: () => string;
+    [Symbol.iterator]: any;
+}
+
+export interface LinkedListConstructor<Value> {
+    new(): ILinkedList<Value>
 }

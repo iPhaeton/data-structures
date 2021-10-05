@@ -100,4 +100,15 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
     print(): string {
         return '';
     };
+
+    [Symbol.iterator](): Iterator<Value, Value> {
+        return {
+            next(): IteratorResult<Value, Value> {
+                return {
+                    value: 1 as any,
+                    done: true,
+                }
+            }
+        }
+    }
 }
