@@ -169,6 +169,7 @@ export const createLinkedListTests = (
                 expect(list.head).toBe(1);
                 expect(list.get(1)).toBe(1.5);
                 expect(list.tail).toBe(2);
+                expect(() => testInvariant(list)).not.toThrow();
             });
 
             it('should insert a value into an empty list', () => {
@@ -179,13 +180,14 @@ export const createLinkedListTests = (
                 expect(list.tail).toBe(1);
             });
 
-            it('should insert a value into the beginning a single node list', () => {
+            it('should insert a value into the beginning of a single node list', () => {
                 list.push(1);
                 const inserted = list.insert(0, 0.5);
                 expect(inserted).toBe(true);
                 expect(list.length).toBe(2);
                 expect(list.head).toBe(0.5);
                 expect(list.tail).toBe(1);
+                expect(() => testInvariant(list)).not.toThrow();
             });
 
             it('should insert a value into the beginning of the list', () => {
@@ -197,6 +199,7 @@ export const createLinkedListTests = (
                 expect(list.head).toBe(0.5);
                 expect(list.get(1)).toBe(1);
                 expect(list.tail).toBe(2);
+                expect(() => testInvariant(list)).not.toThrow();
             });
 
             it('should insert a value into the end of the list', () => {
@@ -208,6 +211,7 @@ export const createLinkedListTests = (
                 expect(list.head).toBe(1);
                 expect(list.get(1)).toBe(2);
                 expect(list.tail).toBe(2.5);
+                expect(() => testInvariant(list)).not.toThrow();
             });
 
             it('should return false, if the index is out of range', () => {

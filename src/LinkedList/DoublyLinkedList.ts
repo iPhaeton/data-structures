@@ -152,7 +152,29 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
     };
 
     insert(index: number, value: Value): boolean {
-        return true;
+        if (index === this.length) {
+            this.push(value);
+            return true;
+        } else if (index === 0) {
+            this.unshift(value);
+            return true;
+        } else {
+            const node = this._getNodeAt(index);
+            const newNode = new this._Node(value);
+            if (node) {
+                newNode.prev = node.prev;
+                if (node.prev) {
+                    node.prev.next = newNode;
+                }
+                newNode.next = node;
+                node.prev = newNode;
+
+                this._length++;
+                return true;
+            } else {
+                return false;
+            };
+        };
     };
 
     remove(index: number): Value | undefined {
