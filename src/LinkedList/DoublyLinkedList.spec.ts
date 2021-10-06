@@ -22,3 +22,19 @@ const testInvariant = (list: DoublyLinkedList<number>): void => {
 };
 
 createLinkedListTests('DoublyLinkedList', DoublyLinkedList, testInvariant);
+
+describe('DoublyLinkedList. Specific', () => {
+    describe('get', () => {
+        it('should get a correct node', () => {
+            const list = new DoublyLinkedList<number>();
+            list.push(1);
+            list.push(2);
+            list.push(3);
+            list.push(4);
+            expect(list.get(0)).toBe(1);
+            expect(list.get(1)).toBe(2);
+            expect(list.get(2)).toBe(3);
+            expect(list.get(3)).toBe(4);
+        });
+    });
+});

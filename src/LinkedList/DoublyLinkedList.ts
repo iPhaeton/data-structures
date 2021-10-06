@@ -68,6 +68,26 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
         }
     }
 
+    private _getNodeAt(index: number): IDoublyLinkedNode<Value> | null {
+        if (index < 0 || index >= this.length) {
+            return null;
+        }
+
+        if (index <= this.length - index) {
+            let node = this._head;
+            for (let i = 0; i < index; i++) {
+                node = node?.next || null;
+            };
+            return node;
+        } else {
+            let node = this._tail;
+            for (let i = this.length - 1; i > index; i--) {
+                node = node?.prev || null;
+            };
+            return node;
+        }
+    }
+
     push(value: Value): DoublyLinkedList<Value> {
         const node = new this._Node(value);
         if (!this._tail) {
@@ -118,7 +138,7 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
     };
 
     get(index: number): Value | undefined {
-        return;
+        return this._getNodeAt(index)?.value;
     };
 
     set(index: number, value: Value): boolean {
