@@ -204,12 +204,16 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
     };
 
     [Symbol.iterator](): Iterator<Value, Value> {
+        let currentNode = this._head;
+
         return {
             next(): IteratorResult<Value, Value> {
-                return {
-                    value: 1 as any,
-                    done: true,
+                const returnValue = {
+                    value: currentNode?.value,
+                    done: currentNode === null,
                 }
+                currentNode = currentNode?.next || null;
+                return returnValue as IteratorResult<Value, Value>;
             }
         }
     }
