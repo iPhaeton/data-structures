@@ -61,6 +61,13 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
         return this._tail?.value;
     };
 
+    private _reconsile(): void {
+        if (this._head === null || this._tail === null) {
+            this._head = null;
+            this._tail = null;
+        }
+    }
+
     push(value: Value): DoublyLinkedList<Value> {
         const node = new this._Node(value);
         if (!this._tail) {
@@ -76,7 +83,14 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
     };
 
     pop(): Value | undefined {
-        return;
+        const node = this._tail;
+        this._tail = node?.prev || null;
+        if (this._tail) {
+            this._tail.next = null;
+        }
+        this._length = Math.max(this._length - 1, 0);
+        this._reconsile();
+        return node?.value;
     };
 
     unshift(value: Value): ILinkedList<Value> {

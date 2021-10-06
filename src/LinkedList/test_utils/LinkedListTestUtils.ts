@@ -38,6 +38,7 @@ export const createLinkedListTests = (
                 expect(poppedValue).toBe(2);
                 expect(list.tail).toBe(1);
                 expect(list.length).toBe(1);
+                expect(() => testInvariant(list)).not.toThrow();
             });
 
             it('should handle popping a node when the list has a single node', () => {
