@@ -196,11 +196,19 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
     };
 
     reverse(): ILinkedList<Value> {
+        let node = this._head;
+        let nextNode = node?.next;
+        while (node !== null) {
+            [node.prev, node.next] = [node.next, node.prev];
+            node = nextNode || null;
+            nextNode = node?.next;
+        }
+        [this._head, this._tail] = [this._tail, this._head];
         return this;
     };
 
     print(): string {
-        return '';
+        return `DoublyLinkedList(${[...this].join(',')})`;;
     };
 
     [Symbol.iterator](): Iterator<Value, Value> {
