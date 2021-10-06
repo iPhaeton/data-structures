@@ -136,6 +136,7 @@ export const createLinkedListTests = (
                 expect(list.get(0)).toBe(3);
                 expect(list.get(1)).toBe(2);
                 expect(list.length).toBe(2);
+                expect(() => testInvariant(list)).not.toThrow();
             });
 
             it('should return false, if the index is put of range', () => {
@@ -146,6 +147,7 @@ export const createLinkedListTests = (
                 expect(list.get(0)).toBe(1);
                 expect(list.get(1)).toBe(2);
                 expect(list.length).toBe(2);
+                expect(() => testInvariant(list)).not.toThrow();
             });
 
             it('should return false, if called on an empty list', () => {
