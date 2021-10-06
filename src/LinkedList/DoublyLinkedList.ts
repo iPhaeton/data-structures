@@ -94,11 +94,27 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
     };
 
     unshift(value: Value): ILinkedList<Value> {
+        const node = new this._Node(value);
+        node.next = this._head;
+        this._head = node;
+        if (!this._tail) {
+            this._tail = this._head;
+        }
+        this._length++;
         return this;
     };
 
     shift(): Value | undefined {
-        return;
+        const node = this._head;
+        if (node) {
+            this._head = node?.next;
+            if (this._head) {
+                this._head.prev = null;
+            }
+        }
+        this._length = Math.max(this._length - 1, 0);
+        this._reconsile();
+        return node?.value;
     };
 
     get(index: number): Value | undefined {

@@ -74,6 +74,7 @@ export const createLinkedListTests = (
                 expect(shiftedValue).toBe(2);
                 expect(list.head).toBe(1);
                 expect(list.length).toBe(1);
+                expect(() => testInvariant(list)).not.toThrow();
             });
 
             it('should handle shifting a node when the list has a single node', () => {
