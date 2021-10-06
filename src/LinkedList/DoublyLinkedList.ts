@@ -178,7 +178,23 @@ export class DoublyLinkedList<Value = any> implements ILinkedList<Value> {
     };
 
     remove(index: number): Value | undefined {
-        return;
+        if (index < 0 || index >= this.length) {
+            return;
+        } else if (index === 0) {
+            return this.shift();
+        } else if (index === this.length - 1) {
+            return this.pop();
+        } else {
+            const node = this._getNodeAt(index) as IDoublyLinkedNode<Value>;
+            if (node.prev) {
+                node.prev.next = node.next;
+            }
+            if (node.next) {
+                node.next.prev = node.prev;
+            }
+            this._length = Math.max(this._length - 1, 0);
+            return node.value;
+        }
     };
 
     reverse(): ILinkedList<Value> {
