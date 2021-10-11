@@ -47,3 +47,13 @@ export interface IQueue<Value> {
 export interface QueueConstructor<Value> {
     new(): IQueue<Value>;
 }
+
+export interface IStack<Value> {
+    length: number;
+    add: (value: Value) => IQueue<Value>;
+    remove: () => Value | undefined;
+}
+
+export interface StackConstructor<Value> {
+    new(): IStack<Value>;
+}
