@@ -1,6 +1,6 @@
 import { composeClasses } from "../utils/composeClasses";
 import { SinglyLinkedList, SinglyLinkedNode } from "./SinglyLinkedList";
-import { ISinglyLinkedNode, QueueConstructor, SinglyLinkedNodeConstructor } from "./types";
+import { IQueue, ISinglyLinkedNode, QueueConstructor, SinglyLinkedNodeConstructor } from "./types";
 
 class QueueBase<Value> {
     private _Node: SinglyLinkedNodeConstructor<Value>;
@@ -26,12 +26,16 @@ class QueueBase<Value> {
 QueueBase.prototype.add = SinglyLinkedList.prototype.push as any;
 QueueBase.prototype.remove = SinglyLinkedList.prototype.shift;
 
-const QueueClass = composeClasses<QueueConstructor<any>>({
+const Queue = composeClasses<QueueConstructor<any>>({
     BaseClass: QueueBase,
     ComposeWith: SinglyLinkedList,
     methodNames: ['_getNodeAt', '_reconsile'],
 });
 
 export const getQueueClass = <Value>(): QueueConstructor<Value> => {
-    return QueueClass;
+    return Queue;
+}
+
+export const createQueue = <Value>(): IQueue<Value> => {
+    return new Queue()
 }

@@ -1,10 +1,6 @@
-import { getQueueClass } from "./LinkedList/Queue";
+import { createQueue } from "./LinkedList/Queue";
 
-const Queue = getQueueClass<number>();
-
-// class Queue<Value> extends getQueueClass<Value>() {}
-
-const q = new Queue();
+const q = createQueue<number>();
 console.log('length', q.length);
 q.add(1);
 q.add(2);
