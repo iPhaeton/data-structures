@@ -68,4 +68,27 @@ describe('BSTNode', () => {
         node.right = null;
         expect(node.right).toBe(null);
     });
+
+    describe('_checkRI', () => {
+        it('should return null, if RI holds', () => {
+            node.left = new BSTNode(value - 1);
+            node.right = new BSTNode(value + 1);
+
+            expect(node._checkRI()).toBe(null);
+        });
+
+        it('should throw, if RI does not hold on the left', () => {
+            node.left = new BSTNode(value + 1);
+            node.right = new BSTNode(value + 1);
+
+            expect(node._checkRI).toThrow();
+        });
+
+        it('should throw, if RI does not hold on the right', () => {
+            node.left = new BSTNode(value - 1);
+            node.right = new BSTNode(value - 1);
+
+            expect(node._checkRI).toThrow();
+        });
+    });
 });
