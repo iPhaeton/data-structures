@@ -6,8 +6,12 @@ export interface IBSTNode<Value> {
     _checkRI: () => null;
 }
 
+export interface IBSTNodeConstructor<Value> {
+    new(value: Value): IBSTNode<Value>;
+}
+
 export interface IBST<Value> {
     size: number;
-    insert: (v: Value) => IBST<Value>;
+    insert: (v: Value) => Value;
     _checkRI: () => null;
 }

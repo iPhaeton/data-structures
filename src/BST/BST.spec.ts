@@ -12,10 +12,11 @@ describe('BST', () => {
             bst.insert(5);
             bst.insert(15);
             bst.insert(2);
-            bst.insert(7);
+            const val = bst.insert(7);
             
             bst._checkRI();
             expect(bst.size).toBe(5);
+            expect(val).toBe(7);
         });
     });
 })
