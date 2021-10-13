@@ -50,6 +50,9 @@ export class BST<Value> implements IBST<Value> {
         if (this.size && !this._root) {
             throw new Error('A tree with size > 0 should have a root');
         }
+        if (!this.size && !!this._root) {
+            throw new Error('A tree with a root should have size > 0');
+        }
         return this._root?._checkRI() || null;
     }
 }
