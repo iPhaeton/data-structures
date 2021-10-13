@@ -18,19 +18,36 @@ describe('BSTNode', () => {
         expect(node.value).toBe(anoterValue);
     });
 
+    it('should have pointer to the parent node', () => {
+        expect(node.parent).toBe(null);
+    });
+
+    it('should allow for setting the parent property to a node', () => {
+        const anotherNode = new BSTNode(12);
+        node.parent = anotherNode;
+        expect(node.parent).toBe(anotherNode);
+    });
+
+    it('should allow for setting the parent property to null', () => {
+        const anotherNode = new BSTNode(12);
+        node.parent = anotherNode;
+        node.parent = null;
+        expect(node.parent).toBe(null);
+    });
+
     it('should have pointer to the left node', () => {
         expect(node.left).toBe(null);
     });
 
     it('should allow for setting the left property to a node', () => {
-        const nextNode = new BSTNode(12);
-        node.left = nextNode;
-        expect(node.left).toBe(nextNode);
+        const anotherNode = new BSTNode(12);
+        node.left = anotherNode;
+        expect(node.left).toBe(anotherNode);
     });
 
     it('should allow for setting the left property to null', () => {
-        const nextNode = new BSTNode(12);
-        node.left = nextNode;
+        const anotherNode = new BSTNode(12);
+        node.left = anotherNode;
         node.left = null;
         expect(node.left).toBe(null);
     });
@@ -40,14 +57,14 @@ describe('BSTNode', () => {
     });
 
     it('should allow for setting the right property to a node', () => {
-        const prevNode = new BSTNode(12);
-        node.right = prevNode;
-        expect(node.right).toBe(prevNode);
+        const anotherNode = new BSTNode(12);
+        node.right = anotherNode;
+        expect(node.right).toBe(anotherNode);
     });
 
     it('should allow for setting the right property to null', () => {
-        const prevNode = new BSTNode(12);
-        node.right = prevNode;
+        const anotherNode = new BSTNode(12);
+        node.right = anotherNode;
         node.right = null;
         expect(node.right).toBe(null);
     });
