@@ -13,5 +13,6 @@ export interface IBSTNodeConstructor<Value> {
 export interface IBST<Value> {
     size: number;
     insert: (v: Value) => Value;
+    find: (v: Value) => Value | undefined;
     _checkRI: () => null;
 }

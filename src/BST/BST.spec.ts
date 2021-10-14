@@ -21,6 +21,22 @@ describe('BST', () => {
         });
     });
 
+    describe('find', () => {
+        it('should find a value, if it is in the tree, should return undefined otherwise', () => {
+            bst.insert(10);
+            bst.insert(5);
+            bst.insert(15);
+            bst.insert(2);
+            bst.insert(7);
+
+            expect(bst.find(10)).toBe(10);
+            expect(bst.find(5)).toBe(5);
+            expect(bst.find(15)).toBe(15);
+            expect(bst.find(2)).toBe(2);
+            expect(bst.find(7)).toBe(7);
+        });
+    })
+
     describe('_checkRI', () => {
         it('should return null, if RI holds', () => {
             const checkRISpy = jest.fn();

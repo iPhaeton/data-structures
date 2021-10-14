@@ -43,6 +43,20 @@ export class BST<Value> implements IBST<Value> {
         return value;
     }
 
+    find(value: Value): Value | undefined {
+        let node = this._root;
+        while (node !== null) {
+            if (node.value === value) {
+                return value;
+            } else if (value < node.value) {
+                node = node.left;
+            } else {
+                node = node.right;
+            }
+        }
+        return undefined;
+    };
+
     _checkRI(): null {
         if (this._root && this._root.parent !== null) {
             throw new Error('The root node should not have a parent');
