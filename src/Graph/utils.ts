@@ -20,10 +20,8 @@ export function* traverseBFS<Value>(
     while (queue.length) {
         const node = queue.remove() as IGraphNode<Value>;
         visited.add(node);
-        // console.log('!!!remove', node.value);
         node.adjacent.forEach(adjNode => {
             if (!visited.has(adjNode)) {
-                // console.log('!!!add', adjNode.value);
                 queue.add(adjNode)
             };
         });

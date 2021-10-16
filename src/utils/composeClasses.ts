@@ -5,7 +5,7 @@ interface IConstructor {
 interface ComposeClassesInterface {
     BaseClass: IConstructor,
     ComposeWith: IConstructor,
-    methodNames?: string[] | null;
+    methodNames?: (string | symbol)[] | null;
 }
 
 export const composeClasses = <T>({

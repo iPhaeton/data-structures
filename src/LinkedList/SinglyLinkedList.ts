@@ -179,8 +179,12 @@ export class SinglyLinkedList<Value> implements ILinkedList<Value> {
         return this;
     }
 
-    print(): string {
-        return `SinglyLinkedList(${[...this].join(',')})`;
+    private _toString(cb: (v: Value) => string): string {
+        return `${[...this].map(cb).join(',')}`;
+    }
+
+    print(cb: (v: Value) => string = v => `${v}`): string {
+        return `SinglyLinkedList(${this._toString(cb)})`;
     }
 
     get head(): Value | undefined {

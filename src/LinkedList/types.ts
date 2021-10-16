@@ -30,7 +30,7 @@ export interface ILinkedList<Value> {
     insert: (index: number, value: Value) => boolean;
     remove: (index: number) => Value | undefined;
     reverse: () => ILinkedList<Value>;
-    print: () => string;
+    print: (cb?: (v: Value) => string) => string;
     [Symbol.iterator]: any;
 }
 
@@ -42,6 +42,7 @@ export interface IQueue<Value> {
     length: number;
     add: (value: Value) => IQueue<Value>;
     remove: () => Value | undefined;
+    print: (cb?: (v: Value) => string) => string;
 }
 
 export interface QueueConstructor<Value> {

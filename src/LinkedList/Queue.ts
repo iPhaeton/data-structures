@@ -21,6 +21,12 @@ class QueueBase<Value> {
 
     add() { return };
     remove() { return };
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    private _toString(cb: (v: Value) => string) { return };
+
+    print(cb: (v: Value) => string = v => `${v}`) {
+        return `Queue(${this._toString(cb)})`
+    };
 }
 
 QueueBase.prototype.add = SinglyLinkedList.prototype.push as any;
@@ -29,7 +35,7 @@ QueueBase.prototype.remove = SinglyLinkedList.prototype.shift;
 const Queue = composeClasses<QueueConstructor<any>>({
     BaseClass: QueueBase,
     ComposeWith: SinglyLinkedList,
-    methodNames: ['_getNodeAt', '_reconsile'],
+    methodNames: ['_getNodeAt', '_reconsile', Symbol.iterator, '_toString'],
 });
 
 export const getQueueClass = <Value>(): QueueConstructor<Value> => {
