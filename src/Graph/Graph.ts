@@ -25,10 +25,27 @@ export class Graph<Value> implements IGraph<Value> {
             return graph;
         }
 
+        const copies = new Map();
         for (const [node, adjacent = []] of array) {
-            const copy = _Node.copy(node);
+            let copy: IGraphNode<Value>;
+            if (copies.has(node)) {
+                copy = copies.get(node);
+            } else {
+                copy = _Node.copy(node);
+                copies.set(node, copy);
+            }
             graph.add(copy);
-            adjacent.forEach(adjacentNode => copy.adjacent.add(adjacentNode));
+
+            adjacent.forEach(adjacentNode => {
+                let adjacentCopy: IGraphNode<Value>;
+                if (copies.has(adjacentNode)) {
+                    adjacentCopy = copies.get(adjacentNode);
+                } else {
+                    adjacentCopy = _Node.copy(adjacentNode);
+                    copies.set(adjacentNode, adjacentCopy);
+                }
+                copy.adjacent.add(adjacentCopy);
+            });
         }
 
         return graph;

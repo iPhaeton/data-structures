@@ -1,9 +1,9 @@
 import { AdjacentStorageConstructor, IAdjacentStorage, IGraphNode } from "./types";
 
 export class GraphNode<Value> implements IGraphNode<Value> {
-    private _adjacent: IAdjacentStorage<GraphNode<Value>>;
+    private _adjacent: IAdjacentStorage<Value>;
 
-    constructor(private _value: Value, _AdjacentStorage: AdjacentStorageConstructor<GraphNode<Value>> = Set) {
+    constructor(private _value: Value, _AdjacentStorage: AdjacentStorageConstructor<Value> = Set) {
         this._adjacent = new _AdjacentStorage();
     }
 
@@ -15,11 +15,11 @@ export class GraphNode<Value> implements IGraphNode<Value> {
         this._value = _value;
     }
 
-    get adjacent(): IAdjacentStorage<GraphNode<Value>> {
+    get adjacent(): IAdjacentStorage<Value> {
         return this._adjacent;
     }
 
-    static copy<Value>(node: IGraphNode<Value>, _AdjacentStorage: AdjacentStorageConstructor<GraphNode<Value>> = Set): GraphNode<Value> {
+    static copy<Value>(node: IGraphNode<Value>, _AdjacentStorage: AdjacentStorageConstructor<Value> = Set): GraphNode<Value> {
         return new GraphNode(node.value, _AdjacentStorage);
     }
 }

@@ -1,7 +1,8 @@
-export interface IAdjacentStorage<Value> extends Iterable<Value> {
+export interface IAdjacentStorage<Value> extends Iterable<IGraphNode<Value>> {
     add(node: IGraphNode<Value>): IAdjacentStorage<Value>;
     delete(node: IGraphNode<Value>): boolean;
     has(node: IGraphNode<Value>): boolean;
+    forEach(callbackfn: (value: IGraphNode<Value>, value2: IGraphNode<Value>, set: IAdjacentStorage<Value>) => void, thisArg?: any): void;
 }
 
 export interface AdjacentStorageConstructor<Value> {
@@ -10,7 +11,7 @@ export interface AdjacentStorageConstructor<Value> {
 
 export interface IGraphNode<Value> {
     value: Value;
-    adjacent: IAdjacentStorage<IGraphNode<Value>>;
+    adjacent: IAdjacentStorage<Value>;
 }
 
 export interface GraphNodeConstructor<Value> {
