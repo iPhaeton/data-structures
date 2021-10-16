@@ -10,19 +10,30 @@ describe('utils', () => {
             const node3 = new GraphNode<number>(3);
             const node4 = new GraphNode<number>(4);
             const node5 = new GraphNode<number>(5);
+            const node6 = new GraphNode<number>(6);
+            const node7 = new GraphNode<number>(7);
 
             const graph = Graph.fromArray([
                 [node1, [node3]],
                 [node2, [node1, node2, node5]],
                 [node3, [node2, node4]],
+                [node6, [node7]]
             ]);
 
             const visitedValues = [];
             for (const node of traverseBFS(graph)) {
                 visitedValues.push(node.value);
             };
-            
-            expect(visitedValues).toEqual([node1.value, node3.value, node2.value, node4.value, node5.value]);
+
+            expect(visitedValues).toEqual([
+                node1.value,
+                node3.value,
+                node2.value,
+                node4.value,
+                node5.value,
+                node6.value,
+                node7.value,
+            ]);
         });
     });
 });

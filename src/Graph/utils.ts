@@ -13,20 +13,23 @@ export function* traverseBFS<Value>(
 ): Generator<IGraphNode<Value>, undefined, undefined> {
     const visited = _Set();
     const queue = _Queue();
-    if (graph.nodes[0]) {
-        queue.add(graph.nodes[0]);
-    };
 
-    while (queue.length) {
-        const node = queue.remove() as IGraphNode<Value>;
-        visited.add(node);
-        node.adjacent.forEach(adjNode => {
-            if (!visited.has(adjNode)) {
-                queue.add(adjNode)
-            };
-        });
-        yield node;
-    };
+    for (const currentRoot of graph.nodes) {
+        if (!visited.has(currentRoot)) {
+            queue.add(currentRoot);
+        };
+
+        while (queue.length) {
+            const node = queue.remove() as IGraphNode<Value>;
+            visited.add(node);
+            node.adjacent.forEach(adjNode => {
+                if (!visited.has(adjNode)) {
+                    queue.add(adjNode)
+                };
+            });
+            yield node;
+        };
+    }
 
     return;
 };
