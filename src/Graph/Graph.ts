@@ -1,4 +1,5 @@
-import { GraphNodesArray, IGraph, IGraphNode } from "./types";
+import { GraphNode } from "./GraphNode";
+import { GraphNodeConstructor, GraphNodesArray, IGraph, IGraphNode } from "./types";
 
 export class Graph<Value> implements IGraph<Value> {
     private _nodes: IGraphNode<Value>[];
@@ -17,7 +18,7 @@ export class Graph<Value> implements IGraph<Value> {
     }
 
     // TODO: The nodes should be copied, not mutated.
-    static fromArray<Value>(array: GraphNodesArray<Value>): Graph<Value> {
+    static fromArray<Value>(array: GraphNodesArray<Value>, _Node: GraphNodeConstructor<Value> = GraphNode): Graph<Value> {
         const graph = new Graph<Value>();
 
         if (!array.length) {
@@ -25,8 +26,9 @@ export class Graph<Value> implements IGraph<Value> {
         }
 
         for (const [node, adjacent = []] of array) {
-            graph.add(node);
-            adjacent.forEach(adjacentNode => node.adjacent.add(adjacentNode));
+            const copy = _Node.copy(node);
+            graph.add(copy);
+            adjacent.forEach(adjacentNode => copy.adjacent.add(adjacentNode));
         }
 
         return graph;

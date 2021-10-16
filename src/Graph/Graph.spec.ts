@@ -1,5 +1,8 @@
 import { Graph } from "./Graph";
 import { GraphNode } from "./GraphNode";
+import { IGraphNode } from "./types";
+
+const valuesArray = <Value>(nodes: IGraphNode<Value>[]): Value[] => nodes.map(n => n.value);
 
 describe('Graph', () => {
     it('should create a graph from an array of nodes', () => {
@@ -14,9 +17,9 @@ describe('Graph', () => {
             [node3, [node2, node4]],
         ]);
 
-        expect(graph.nodes).toEqual([node1, node2, node3]);
-        expect(node1.adjacent).toEqual(new Set([node2, node3]));
-        expect(node2.adjacent).toEqual(new Set([node1]));
-        expect(node3.adjacent).toEqual(new Set([node2, node4]));
+        expect(valuesArray(graph.nodes)).toEqual(valuesArray([node1, node2, node3]));
+        expect(valuesArray([...graph.nodes[0].adjacent])).toEqual(valuesArray([node2, node3]));
+        expect(valuesArray([...graph.nodes[1].adjacent])).toEqual(valuesArray([node1]));
+        expect(valuesArray([...graph.nodes[2].adjacent])).toEqual(valuesArray([node2, node4]));
     })
 });

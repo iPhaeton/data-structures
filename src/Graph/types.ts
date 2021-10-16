@@ -1,4 +1,4 @@
-export interface IAdjacentStorage<Value> {
+export interface IAdjacentStorage<Value> extends Iterable<Value> {
     add(node: IGraphNode<Value>): IAdjacentStorage<Value>;
     delete(node: IGraphNode<Value>): boolean;
     has(node: IGraphNode<Value>): boolean;
@@ -10,11 +10,12 @@ export interface AdjacentStorageConstructor<Value> {
 
 export interface IGraphNode<Value> {
     value: Value;
-    adjacent: IAdjacentStorage<Value>;
+    adjacent: IAdjacentStorage<IGraphNode<Value>>;
 }
 
 export interface GraphNodeConstructor<Value> {
     new(_value: Value, _AdjacentStorage?: AdjacentStorageConstructor<Value>): IGraphNode<Value>;
+    copy: (node: IGraphNode<Value>) => IGraphNode<Value>;
 }
 
 export interface IGraph<Value> {
