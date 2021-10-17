@@ -38,54 +38,41 @@ export interface TraverseDFSParams<Value> {
     _Set?: () => Set<IGraphNode<Value>>;
 }
 
+type DFSOrder = 'pre' | 'post';
+
 interface TraverseDFSContext<Value> {
+    order: 'pre' | 'post';
     visited: Set<IGraphNode<Value>>;
 }
 
-function* traverseDFSPreOrderNode<Value>(node: IGraphNode<Value>, context: TraverseDFSContext<Value>): Generator<IGraphNode<Value>, undefined, undefined> {
-    yield node;
+function* traverseDFSNode<Value>(node: IGraphNode<Value>, context: TraverseDFSContext<Value>): Generator<IGraphNode<Value>, undefined, undefined> {
+    const { order, visited } = context;
+
+    if (order === 'pre') {
+        yield node;
+    }
+
     for (const adjNode of node.adjacent) {
-        if (!context.visited.has(adjNode)) {
-            context.visited.add(adjNode);
-            yield* traverseDFSPreOrderNode(adjNode, context);
+        if (!visited.has(adjNode)) {
+            visited.add(adjNode);
+            yield* traverseDFSNode(adjNode, context);
         }
     };
+
+    if (order === 'post') {
+        yield node;
+    }
+
     return;
 }
 
-export function* traverseDFSPreOrder<Value>(graph: IGraph<Value>, { _Set = () => new Set() }: TraverseDFSParams<Value> = {}): Generator<IGraphNode<Value>, undefined, undefined> {
-    const context = { visited: _Set() };
+export function* traverseDFS<Value>(graph: IGraph<Value>, order: DFSOrder, {_Set = () => new Set() }: TraverseDFSParams<Value> = {}): Generator<IGraphNode<Value>, undefined, undefined> {
+    const context = { order, visited: _Set() };
 
     for (const currentRoot of graph.nodes) {
         if (!context.visited.has(currentRoot)) {
             context.visited.add(currentRoot);
-            for (const node of traverseDFSPreOrderNode(currentRoot, context)) {
-                yield node;
-            };
-        };
-    };
-
-    return;
-};
-
-function* traverseDFSPostOrderNode<Value>(node: IGraphNode<Value>, context: TraverseDFSContext<Value>): Generator<IGraphNode<Value>, undefined, undefined> {
-    for (const adjNode of node.adjacent) {
-        if (!context.visited.has(adjNode)) {
-            context.visited.add(adjNode);
-            yield* traverseDFSPostOrderNode(adjNode, context);
-        }
-    };
-    yield node;
-    return;
-}
-
-export function* traverseDFSPostOrder<Value>(graph: IGraph<Value>, { _Set = () => new Set() }: TraverseDFSParams<Value> = {}): Generator<IGraphNode<Value>, undefined, undefined> {
-    const context = { visited: _Set() };
-
-    for (const currentRoot of graph.nodes) {
-        if (!context.visited.has(currentRoot)) {
-            context.visited.add(currentRoot);
-            for (const node of traverseDFSPostOrderNode(currentRoot, context)) {
+            for (const node of traverseDFSNode(currentRoot, context)) {
                 yield node;
             };
         };

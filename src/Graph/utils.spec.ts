@@ -1,6 +1,6 @@
 import { Graph } from "./Graph";
 import { GraphNode } from "./GraphNode";
-import { traverseBFS, traverseDFSPostOrder, traverseDFSPreOrder } from "./utils";
+import { traverseBFS, traverseDFS } from "./utils";
 
 describe('utils', () => {
     describe('traverseBFS', () => {
@@ -37,7 +37,7 @@ describe('utils', () => {
         });
     });
 
-    describe('traverseDFSPreOrder', () => {
+    describe('traverseDFS', () => {
         it('should traverse a graph nodes in the DFS pre-order way', () => {
             const node1 = new GraphNode<number>(1);
             const node2 = new GraphNode<number>(2);
@@ -55,7 +55,7 @@ describe('utils', () => {
             ]);
 
             const visitedValues = [];
-            for (const node of traverseDFSPreOrder(graph)) {
+            for (const node of traverseDFS(graph, 'pre')) {
                 visitedValues.push(node.value);
             };
 
@@ -69,10 +69,8 @@ describe('utils', () => {
                 node7.value,
             ]);
         });
-    });
 
-    describe('traverseDFSPostOrder', () => {
-        it('should traverse a graph nodes in the DFS pre-order way', () => {
+        it('should traverse a graph nodes in the DFS post-order way', () => {
             const node1 = new GraphNode<number>(1);
             const node2 = new GraphNode<number>(2);
             const node3 = new GraphNode<number>(3);
@@ -89,7 +87,7 @@ describe('utils', () => {
             ]);
 
             const visitedValues = [];
-            for (const node of traverseDFSPostOrder(graph)) {
+            for (const node of traverseDFS(graph, 'post')) {
                 visitedValues.push(node.value);
             };
 
