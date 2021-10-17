@@ -67,3 +67,29 @@ export function* traverseDFSPreOrder<Value>(graph: IGraph<Value>, { _Set = () =>
 
     return;
 };
+
+function* traverseDFSPostOrderNode<Value>(node: IGraphNode<Value>, context: TraverseDFSContext<Value>): Generator<IGraphNode<Value>, undefined, undefined> {
+    for (const adjNode of node.adjacent) {
+        if (!context.visited.has(adjNode)) {
+            context.visited.add(adjNode);
+            yield* traverseDFSPostOrderNode(adjNode, context);
+        }
+    };
+    yield node;
+    return;
+}
+
+export function* traverseDFSPostOrder<Value>(graph: IGraph<Value>, { _Set = () => new Set() }: TraverseDFSParams<Value> = {}): Generator<IGraphNode<Value>, undefined, undefined> {
+    const context = { visited: _Set() };
+
+    for (const currentRoot of graph.nodes) {
+        if (!context.visited.has(currentRoot)) {
+            context.visited.add(currentRoot);
+            for (const node of traverseDFSPostOrderNode(currentRoot, context)) {
+                yield node;
+            };
+        };
+    };
+
+    return;
+};
