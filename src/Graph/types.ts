@@ -25,3 +25,5 @@ export interface IGraph<Value> {
 }
 
 export type GraphNodesArray<Value> = [IGraphNode<Value>, IGraphNode<Value>[]?][];
+
+export type DFSOrder = 'pre' | 'post';

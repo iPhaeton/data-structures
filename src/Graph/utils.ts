@@ -1,6 +1,7 @@
+import { IBSTNode } from "src/BST/types";
 import { createQueue } from "../LinkedList/Queue";
-import { IQueue } from "../LinkedList/types";
-import { IGraph, IGraphNode } from "./types";
+import { IDoublyLinkedNode, IQueue } from "../LinkedList/types";
+import { DFSOrder, IGraph, IGraphNode } from "./types";
 
 export interface TraverseBFSParams<Value> {
     _Queue?: () => IQueue<IGraphNode<Value>>;
@@ -37,8 +38,6 @@ export function* traverseBFS<Value>(
 export interface TraverseDFSParams<Value> {
     _Set?: () => Set<IGraphNode<Value>>;
 }
-
-type DFSOrder = 'pre' | 'post';
 
 interface TraverseDFSContext<Value> {
     order: 'pre' | 'post';

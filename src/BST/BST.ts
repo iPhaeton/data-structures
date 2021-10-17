@@ -17,6 +17,10 @@ export class BST<Value> implements IBST<Value> {
         return this._size;
     }
 
+    get root(): IBSTNode<Value> | null {
+        return this._root;
+    }
+
     insert(value: Value): Value {
         let parent = null;
         let node = this._root;
