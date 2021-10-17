@@ -33,3 +33,33 @@ export function* traverseBFS<Value>(
 
     return;
 };
+
+export interface TraverseDFSParams<Value> {
+    _Set?: () => Set<IGraphNode<Value>>;
+}
+
+function* traverseDFSPreOrderNode<Value>(node: IGraphNode<Value>, visited: Set<IGraphNode<Value>>): Generator<IGraphNode<Value>, undefined, undefined> {
+    yield node;
+    for (const adjNode of node.adjacent) {
+        if (!visited.has(adjNode)) {
+            visited.add(adjNode);
+            yield* traverseDFSPreOrderNode(adjNode, visited);
+        }
+    };
+    return;
+}
+
+export function* traverseDFSPreOrder<Value>(graph: IGraph<Value>, { _Set = () => new Set() }: TraverseDFSParams<Value> = {}): Generator<IGraphNode<Value>, undefined, undefined> {
+    const visited = _Set();
+
+    for (const currentRoot of graph.nodes) {
+        if (!visited.has(currentRoot)) {
+            visited.add(currentRoot);
+            for (const node of traverseDFSPreOrderNode(currentRoot, visited)) {
+                yield node;
+            };
+        };
+    };
+
+    return;
+};
