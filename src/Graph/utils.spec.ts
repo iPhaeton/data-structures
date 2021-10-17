@@ -2,7 +2,7 @@ import { Graph } from "./Graph";
 import { GraphNode } from "./GraphNode";
 import { traverseBFS, traverseDFS } from "./utils";
 
-describe('utils', () => {
+describe('Graph utils', () => {
     describe('traverseBFS', () => {
         it('should traverse a graph nodes in the BFS way', () => {
             const node1 = new GraphNode<number>(1);
