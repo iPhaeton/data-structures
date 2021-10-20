@@ -19,11 +19,7 @@ export class Heap<Value> implements IHeap<Value> {
         return this._size;
     }
 
-    insert(value: Value): Value {
-        this._data.push(value);
-
-        this._size++;
-        let valueIndex = this.size - 1;
+    private _bubbleUp(valueIndex: number) {
         let parentIndex = Math.floor((valueIndex - 1) / 2);
         while (parentIndex >= 0) {
             if (!this._checkComparisonResult(this._data[parentIndex], this._data[valueIndex])) {
@@ -34,6 +30,14 @@ export class Heap<Value> implements IHeap<Value> {
                 break;
             };
         };
+    }
+
+    insert(value: Value): Value {
+        this._data.push(value);
+
+        this._size++;
+        this._bubbleUp(this.size - 1);
+
         return value;
     }
 
