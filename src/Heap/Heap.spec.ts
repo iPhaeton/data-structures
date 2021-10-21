@@ -19,7 +19,42 @@ describe('Heap', () => {
 
             expect(heap.size).toBe(5);
             expect(heap._checkRI()).toBe(null)
-        })
+        });
+    });
+
+    describe('exctract', () => {
+        it.each`
+            type
+            ${'min'}
+            ${'max'}
+        `('should extract $type element', ({ type }: { type: HeapType }) => {
+            const heap = new Heap<number>(type, comparisonFn);
+            heap.insert(2);
+            heap.insert(5);
+            heap.insert(-5);
+            heap.insert(15);
+            heap.insert(0);
+
+            
+            const expectedResult = Math[type](...heap['_data']);
+
+            const element = heap.extract();
+
+            expect(element).toBe(expectedResult);
+            expect(heap.size).toBe(4);
+            expect(heap._checkRI()).toBe(null);
+        });
+
+        it.each`
+            type
+            ${'min'}
+            ${'max'}
+        `('should handle the case when the heap is empty', ({type}) => {
+            const heap = new Heap<number>(type, comparisonFn);
+
+            expect(heap.extract()).toBe(undefined);
+            expect(heap.size).toBe(0);
+        });
     });
 
     describe('_checkRI', () => {
