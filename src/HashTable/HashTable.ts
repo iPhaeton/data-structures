@@ -1,17 +1,33 @@
-import { HashFn, IHashTable, Table } from "./types";
+import { HashFn, HashTableParams, IHashTable, Table } from "./types";
 
 export class HashTable<K, V> implements IHashTable<K, V> {
     private _size: number;
     private _cellCount: number;
     private _table: Table<K, V>;
+    private _desiredLoadFactor: [number, number];
+    private _createHashFn: (size: number) => HashFn<K>;
+    private _increaseSize: (size: number) => number;
+    private _decreaseSize: (size: number) => number;
     private _hash: HashFn<K>;
 
     constructor(
         size: number,
-        private readonly _createHashFn: (size: number) => HashFn<K>,
-        private readonly _desiredLoadFactor: number[] = [0.8, 0.5],
+        {
+            desiredLoadFactor = [0.8, 0.5],
+            hashFnCreator,
+            sizeIncreaser = size => size * 2,
+            sizeDecreaser = size => Math.floor(size / 2),
+        }: HashTableParams<K> = { hashFnCreator: () => () => 0 },
     ) {
-        this._size = 0;
+        if (!size) {
+            throw new Error('Size should be greater than 0');
+        }
+
+        this._desiredLoadFactor = desiredLoadFactor;
+        this._createHashFn = hashFnCreator;
+        this._increaseSize = sizeIncreaser;
+        this._decreaseSize = sizeDecreaser;
+        this._size = size;
         this._cellCount = 0;
         this._table = [];
         this._createTable(size);
@@ -19,7 +35,11 @@ export class HashTable<K, V> implements IHashTable<K, V> {
     };
 
     private _createTable(size: number) {
-        this._size = size;
+        this._size = (size > this._size) ?
+            this._increaseSize(this._size) :
+            (size < this._size) ?
+                this._decreaseSize(this._size) :
+                size;
         this._table = new Array(size);
         for (let i = 0; i < this._table.length; i++) {
             this._table[i] = [];
