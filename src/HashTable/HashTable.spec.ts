@@ -2,12 +2,12 @@ import { HashTable } from "./HashTable";
 
 describe('HashTable', () => {
     it('should add/get key - value pairs', () => {
-        const hashFn = (key: string) => {
+        const createHashFn = () => (key: string) => {
             if (key === 'val1' || key === 'val2') return 2;
             else return 4;
         }
 
-        const table = new HashTable<string, number>(10, hashFn);
+        const table = new HashTable<string, number>(10, createHashFn);
         expect(table.add('val1', 1)).toBe(1);
         expect(table.add('val2', 2)).toBe(2);
         expect(table.add('val3', 3)).toBe(3);
@@ -31,7 +31,7 @@ describe('HashTable', () => {
     });
 
     it('should increase and rebuild inner array, when desired fill rate is reached', () => {
-        const table = new HashTable<string, number>(3, () => 5, [0.5, 0.5]);
+        const table = new HashTable<string, number>(3, (m) => () => 5 % m, [0.5, 0.5]);
         table._checkRI([[], [], []]);
 
         table.add('val1', 1);

@@ -1,19 +1,21 @@
-import { IHashTable, Table } from "./types";
+import { HashFn, IHashTable, Table } from "./types";
 
 export class HashTable<K, V> implements IHashTable<K, V> {
     private _size: number;
     private _cellCount: number;
     private _table: Table<K, V>;
+    private _hash: HashFn<K>;
 
     constructor(
         size: number,
-        private readonly _hashFn: (key: K) => number,
+        private readonly _createHashFn: (size: number) => HashFn<K>,
         private readonly _desiredLoadFactor: number[] = [0.8, 0.5],
     ) {
         this._size = 0;
         this._cellCount = 0;
         this._table = [];
         this._createTable(size);
+        this._hash = this._createHashFn(this._size);
     };
 
     private _createTable(size: number) {
@@ -24,14 +26,11 @@ export class HashTable<K, V> implements IHashTable<K, V> {
         }
     }
 
-    private _hash(key: K): number {
-        return this._hashFn(key) % this._size;
-    }
-
     private _rebuild(size: number): void {
         this._cellCount = 0;
         const currentTable = this._table;
         this._createTable(size);
+        this._hash = this._createHashFn(this._size);
 
         for (let i = 0; i < currentTable.length; i++) {
             for (let j = 0; j < currentTable[i].length; j++) {
