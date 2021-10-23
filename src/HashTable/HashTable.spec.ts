@@ -32,7 +32,7 @@ describe('HashTable', () => {
 
     it('should increase and rebuild inner array, when desired fill rate is reached', () => {
         const table = new HashTable<string, number>(3, () => 5, [0.5, 0.5]);
-        table._checkRI([[], []]);
+        table._checkRI([[], [], []]);
 
         table.add('val1', 1);
         table._checkRI([[], [], [['val1', 1]]]);
