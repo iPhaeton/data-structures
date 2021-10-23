@@ -8,7 +8,7 @@ export class HashTable<K, V> implements IHashTable<K, V> {
     constructor(
         size: number,
         private readonly _hashFn: (key: K) => number,
-        private readonly _desiredFillRate: number[] = [0.8, 0.5],
+        private readonly _desiredLoadFactor: number[] = [0.8, 0.5],
     ) {
         this._size = 0;
         this._cellCount = 0;
@@ -41,12 +41,12 @@ export class HashTable<K, V> implements IHashTable<K, V> {
         }
     }
 
-    private _fillRate(): number {
+    private _loadFactor(): number {
         return (this._cellCount && this._size) ? this._cellCount / this._size : 0;
     }
 
     private _shouldRebuild(): boolean {
-        return this._fillRate() >= this._desiredFillRate[0] ? true : false;
+        return this._loadFactor() >= this._desiredLoadFactor[0] ? true : false;
     }
 
     add(key: K, value: V): V {
