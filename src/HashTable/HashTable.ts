@@ -17,7 +17,7 @@ export class HashTable<K, V> implements IHashTable<K, V> {
             hashFnCreator,
             sizeIncreaser = size => size * 2,
             sizeDecreaser = size => Math.floor(size / 2),
-        }: HashTableParams<K> = { hashFnCreator: () => () => 0 },
+        }: HashTableParams<K>,
     ) {
         if (!size) {
             throw new Error('Size should be greater than 0');
@@ -88,14 +88,24 @@ export class HashTable<K, V> implements IHashTable<K, V> {
 
     get(key: K): V | undefined {
         const hashValue = this._hash(key);
-        const entry = this._table[hashValue].length === 1 ?
-            this._table[hashValue][0] :
+        const entry =
             this._table[hashValue].find(([k]) => k === key) || [];
         return entry[1];
     }
 
     delete(key: K): V | undefined {
-        return;
+        const hashValue = this._hash(key);
+        const newTableEntry: [K, V][] = [];
+        let deletedValue;
+        for (const [k, v] of this._table[hashValue]) {
+            if (k !== key) {
+                newTableEntry.push([k, v])
+            } else {
+                deletedValue = v;
+            }
+        }
+        this._table[hashValue] = newTableEntry;
+        return deletedValue;
     }
 
     // should be run in jest environment

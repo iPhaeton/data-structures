@@ -62,6 +62,14 @@ describe('HashTable', () => {
         });
     });
 
+    describe('get', () => {
+        it('should return undefined, if the key is not in the table', () => {
+            const table = new HashTable(3, {hashFnCreator: () => () => 0});
+            table.add('val1', 1);
+            expect(table.get('val2')).toBe(undefined);
+        });
+    });
+
     describe('delete', () => {
         it('should delete a value', () => {
             const createHashFn = () => (key: string) => {
