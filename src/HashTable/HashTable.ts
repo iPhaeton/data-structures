@@ -118,6 +118,14 @@ export class HashTable<K, V> implements IHashTable<K, V> {
         return deletedValue;
     }
 
+    keys(): K[] {
+        return [];
+    }
+
+    values(): V[] {
+        return [];
+    }
+
     // should be run in jest environment
     _checkRI(expectedTable: Table<K, V>): void {
         return expect(this._table).toEqual(expectedTable);

@@ -64,7 +64,7 @@ describe('HashTable', () => {
 
     describe('get', () => {
         it('should return undefined, if the key is not in the table', () => {
-            const table = new HashTable(3, {hashFnCreator: () => () => 0});
+            const table = new HashTable(3, { hashFnCreator: () => () => 0 });
             table.add('val1', 1);
             expect(table.get('val2')).toBe(undefined);
         });
@@ -111,6 +111,41 @@ describe('HashTable', () => {
 
             table.delete('val2');
             table._checkRI([[], [], [['val1', 1]]]);
+        });
+    });
+
+    describe('keys', () => {
+        it('should return an iterator of the table keys', () => {
+            const createHashFn = () => (key: string) => {
+                if (key === 'val1' || key === 'val2') return 2;
+                else return 4;
+            }
+
+            const table = new HashTable<string, number>(10, { hashFnCreator: createHashFn });
+            expect([...table.keys()]).toEqual([]);
+
+            table.add('val1', 1);
+            table.add('val2', 2);
+            table.add('val3', 3);
+
+            expect([...table.keys()]).toEqual(['val1', 'val2', 'val3']);
+        });
+    });
+
+    describe('values', () => {
+        it('should return an iterator of the table values', () => {
+            const createHashFn = () => (key: string) => {
+                if (key === 'val1' || key === 'val2') return 2;
+                else return 4;
+            }
+
+            const table = new HashTable<string, number>(10, { hashFnCreator: createHashFn });
+            expect([...table.values()]).toEqual([]);
+            table.add('val1', 1);
+            table.add('val2', 2);
+            table.add('val3', 3);
+
+            expect([...table.values()]).toEqual([1, 2, 3]);
         });
     });
 });
