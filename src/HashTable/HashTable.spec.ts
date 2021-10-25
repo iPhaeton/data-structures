@@ -13,7 +13,7 @@ describe('HashTable', () => {
                 else return 4;
             }
 
-            const table = new HashTable<string, number>(10, { hashFnCreator: createHashFn });
+            const table = new HashTable<string, number>(10, { hashFnCreator: createHashFn, createList: () => [] as any });
             expect(table.add('val1', 1)).toBe(1);
             expect(table.add('val2', 2)).toBe(2);
             expect(table.add('val3', 3)).toBe(3);
@@ -37,7 +37,7 @@ describe('HashTable', () => {
         });
 
         it('should overwrite the previous value, if the key is added more than once', () => {
-            const table = new HashTable(2, { hashFnCreator: () => () => 0, desiredLoadFactor: [1, 1] });
+            const table = new HashTable(2, { hashFnCreator: () => () => 0, desiredLoadFactor: [1, 1], createList: () => [] as any });
 
             table.add('val1', 1);
             table.add('val1', 2);
@@ -51,6 +51,7 @@ describe('HashTable', () => {
                 {
                     hashFnCreator: (m) => () => 5 % m,
                     desiredLoadFactor: [0.5, 0.5],
+                    createList: () => [] as any
                 });
             table._checkRI([[], [], []]);
 
@@ -64,7 +65,7 @@ describe('HashTable', () => {
 
     describe('get', () => {
         it('should return undefined, if the key is not in the table', () => {
-            const table = new HashTable(3, { hashFnCreator: () => () => 0 });
+            const table = new HashTable(3, { hashFnCreator: () => () => 0, createList: () => [] as any });
             table.add('val1', 1);
             expect(table.get('val2')).toBe(undefined);
         });
@@ -77,7 +78,7 @@ describe('HashTable', () => {
                 else return 4;
             }
 
-            const table = new HashTable<string, number>(5, { hashFnCreator: createHashFn, desiredLoadFactor: [1, 1] });
+            const table = new HashTable<string, number>(5, { hashFnCreator: createHashFn, desiredLoadFactor: [1, 1], createList: () => [] as any });
             expect(table.add('val1', 1)).toBe(1);
             expect(table.add('val2', 2)).toBe(2);
             expect(table.add('val3', 3)).toBe(3);
@@ -103,6 +104,7 @@ describe('HashTable', () => {
                 {
                     hashFnCreator: (m) => () => 5 % m,
                     desiredLoadFactor: [0.5, 0.5],
+                    createList: () => [] as any,
                 });
             table.add('val1', 1);
             table.add('val2', 2);
@@ -121,7 +123,7 @@ describe('HashTable', () => {
                 else return 4;
             }
 
-            const table = new HashTable<string, number>(10, { hashFnCreator: createHashFn });
+            const table = new HashTable<string, number>(10, { hashFnCreator: createHashFn, createList: () => [] as any });
             expect([...table.keys()]).toEqual([]);
 
             table.add('val1', 1);
@@ -139,7 +141,7 @@ describe('HashTable', () => {
                 else return 4;
             }
 
-            const table = new HashTable<string, number>(10, { hashFnCreator: createHashFn });
+            const table = new HashTable<string, number>(10, { hashFnCreator: createHashFn, createList: () => [] as any });
             expect([...table.values()]).toEqual([]);
             table.add('val1', 1);
             table.add('val2', 2);

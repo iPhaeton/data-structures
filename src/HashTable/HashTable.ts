@@ -1,29 +1,34 @@
+import { DoublyLinkedList } from "src/LinkedList/DoublyLinkedList";
+import { ILinkedList } from "src/LinkedList/types";
 import { HashFn, HashTableParams, IHashTable, Table } from "./types";
 
 export class HashTable<K, V> implements IHashTable<K, V> {
     private _size: number;
     private readonly _originalSize: number;
     private _cellCount: number;
-    private _table: Table<K, V>;
+    private _table: ILinkedList<[K, V]>[];
     private _desiredLoadFactor: [number, number];
     private _createHashFn: (size: number) => HashFn<K>;
     private _increaseSize: (size: number) => number;
     private _decreaseSize: (size: number) => number;
     private _hash: HashFn<K>;
+    private readonly _createList: () => ILinkedList<[K, V]>;
 
     constructor(
         size: number,
         {
             desiredLoadFactor = [0.8, 0.5],
             hashFnCreator,
-            sizeIncreaser = size => size * 2,
-            sizeDecreaser = size => Math.floor(size / 2),
-        }: HashTableParams<K>,
+            sizeIncreaser = (size: number) => size * 2,
+            sizeDecreaser = (size: number) => Math.floor(size / 2),
+            createList = () => new DoublyLinkedList<[K, V]>(),
+        }: HashTableParams<K, V>,
     ) {
         if (!size) {
             throw new Error('Size should be greater than 0');
         }
 
+        this._createList = createList;
         this._desiredLoadFactor = desiredLoadFactor;
         this._createHashFn = hashFnCreator;
         this._increaseSize = sizeIncreaser;
@@ -44,7 +49,7 @@ export class HashTable<K, V> implements IHashTable<K, V> {
                 size;
         this._table = new Array(size);
         for (let i = 0; i < this._table.length; i++) {
-            this._table[i] = [];
+            this._table[i] = this._createList();
         }
     }
 
@@ -55,8 +60,7 @@ export class HashTable<K, V> implements IHashTable<K, V> {
         this._hash = this._createHashFn(this._size);
 
         for (let i = 0; i < currentTable.length; i++) {
-            for (let j = 0; j < currentTable[i].length; j++) {
-                const [key, value] = currentTable[i][j];
+            for (const [key, value] of currentTable[i]) {
                 this.add(key, value);
             }
         }
@@ -74,9 +78,15 @@ export class HashTable<K, V> implements IHashTable<K, V> {
         return this._loadFactor() <= this._desiredLoadFactor[1] ? true : false;
     }
 
+    private _findEntryInIndex(index: number, key: K): [K, V] | undefined {
+        for (const entry of this._table[index]) {
+            if (entry[0] === key) return entry;
+        }
+    }
+
     add(key: K, value: V): V {
         const hashValue = this._hash(key);
-        const exisingEntry = this._table[hashValue].find(([k]) => k === key);
+        const exisingEntry = this._findEntryInIndex(hashValue, key);
 
         if (exisingEntry) {
             exisingEntry[1] = value;
@@ -94,14 +104,13 @@ export class HashTable<K, V> implements IHashTable<K, V> {
 
     get(key: K): V | undefined {
         const hashValue = this._hash(key);
-        const entry =
-            this._table[hashValue].find(([k]) => k === key) || [];
+        const entry = this._findEntryInIndex(hashValue, key) || [];
         return entry[1];
     }
 
     delete(key: K): V | undefined {
         const hashValue = this._hash(key);
-        const newTableEntry: [K, V][] = [];
+        const newTableEntry: ILinkedList<[K, V]> = this._createList();
         let deletedValue;
         for (const [k, v] of this._table[hashValue]) {
             if (k !== key) {
