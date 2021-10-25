@@ -69,13 +69,20 @@ export class HashTable<K, V> implements IHashTable<K, V> {
     }
 
     add(key: K, value: V): V {
-        this._cellCount++;
+        const hashValue = this._hash(key);
+        const exisingEntry = this._table[hashValue].find(([k]) => k === key);
+
+        if (exisingEntry) {
+            exisingEntry[1] = value;
+        } else {
+            this._table[hashValue].push([key, value]);
+            this._cellCount++;
+        }
+
         if (this._shouldRebuild()) {
             this._rebuild(this._size * 2);
         }
 
-        const hashValue = this._hash(key);
-        this._table[hashValue].push([key, value]);
         return value;
     }
 

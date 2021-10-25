@@ -35,6 +35,15 @@ describe('HashTable', () => {
         ]);
     });
 
+    it('should overwrite the previous value, if the key is added more than once', () => {
+        const table = new HashTable(2, { hashFnCreator: () => () => 0, desiredLoadFactor: [1, 1] });
+
+        table.add('val1', 1);
+        table.add('val1', 2);
+
+        table._checkRI([[['val1', 2]], []]);
+    })
+
     it('should increase and rebuild inner array, when desired fill rate is reached', () => {
         const table = new HashTable<string, number>(
             3,
