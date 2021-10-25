@@ -134,10 +134,14 @@ export class HashTable<K, V> implements IHashTable<K, V> {
     values(): IterableIterator<V> {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
+        const foundValues = new Set<V>();
         function* gen() {
             for (const tableEntry of self._table) {
                 for (const [_, value] of tableEntry) {
-                    yield value;
+                    if (!foundValues.has(value)) {
+                        foundValues.add(value);
+                        yield value;
+                    }
                 }
             }
         };
