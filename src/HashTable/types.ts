@@ -13,6 +13,6 @@ export interface IHashTable<K, V> {
     add: (key: K, value: V) => V;
     get: (key: K) => V | undefined;
     delete: (key: K) => V | undefined;
-    keys: () => K[];
-    values: () => V[];
+    keys: () => IterableIterator<K>;
+    values: () => IterableIterator<V>;
 }

@@ -118,12 +118,30 @@ export class HashTable<K, V> implements IHashTable<K, V> {
         return deletedValue;
     }
 
-    keys(): K[] {
-        return [];
+    keys(): IterableIterator<K> {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const self = this;
+        function* gen() {
+            for (const tableEntry of self._table) {
+                for (const [key] of tableEntry) {
+                    yield key;
+                }
+            }
+        };
+        return gen();
     }
 
-    values(): V[] {
-        return [];
+    values(): IterableIterator<V> {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const self = this;
+        function* gen() {
+            for (const tableEntry of self._table) {
+                for (const [_, value] of tableEntry) {
+                    yield value;
+                }
+            }
+        };
+        return gen();
     }
 
     // should be run in jest environment
