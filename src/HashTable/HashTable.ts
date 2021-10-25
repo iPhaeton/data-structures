@@ -2,6 +2,7 @@ import { HashFn, HashTableParams, IHashTable, Table } from "./types";
 
 export class HashTable<K, V> implements IHashTable<K, V> {
     private _size: number;
+    private readonly _originalSize: number;
     private _cellCount: number;
     private _table: Table<K, V>;
     private _desiredLoadFactor: [number, number];
@@ -28,6 +29,7 @@ export class HashTable<K, V> implements IHashTable<K, V> {
         this._increaseSize = sizeIncreaser;
         this._decreaseSize = sizeDecreaser;
         this._size = size;
+        this._originalSize = size;
         this._cellCount = 0;
         this._table = [];
         this._createTable(size);
@@ -64,8 +66,12 @@ export class HashTable<K, V> implements IHashTable<K, V> {
         return (this._cellCount && this._size) ? this._cellCount / this._size : 0;
     }
 
-    private _shouldRebuild(): boolean {
+    private _shouldRebuildUp(): boolean {
         return this._loadFactor() >= this._desiredLoadFactor[0] ? true : false;
+    }
+
+    private _shouldRebuildDown(): boolean {
+        return this._loadFactor() <= this._desiredLoadFactor[1] ? true : false;
     }
 
     add(key: K, value: V): V {
@@ -79,7 +85,7 @@ export class HashTable<K, V> implements IHashTable<K, V> {
             this._cellCount++;
         }
 
-        if (this._shouldRebuild()) {
+        if (this._shouldRebuildUp()) {
             this._rebuild(this._size * 2);
         }
 
@@ -102,9 +108,13 @@ export class HashTable<K, V> implements IHashTable<K, V> {
                 newTableEntry.push([k, v])
             } else {
                 deletedValue = v;
+                this._cellCount--;
             }
         }
         this._table[hashValue] = newTableEntry;
+        if (this._shouldRebuildDown()) {
+            this._rebuild(Math.max(Math.floor(this._size / 2), this._originalSize));
+        }
         return deletedValue;
     }
 
