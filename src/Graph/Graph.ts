@@ -1,25 +1,27 @@
 import { GraphNode } from "./GraphNode";
 import { GraphNodeConstructor, GraphNodesArray, IGraph, IGraphNode } from "./types";
 
-export class Graph<Value> implements IGraph<Value> {
-    private _nodes: IGraphNode<Value>[];
+export class Graph<ID, Value> implements IGraph<ID, Value> {
+    private _nodes: Map<ID, IGraphNode<ID, Value>>;
 
     constructor() {
-        this._nodes = [];
+        this._nodes = new Map();
     };
 
-    get nodes(): IGraphNode<Value>[] {
-        return this._nodes;
+    get nodes(): IterableIterator<IGraphNode<ID, Value>> {
+        return this._nodes.values();
     }
 
-    add(node: IGraphNode<Value>): Graph<Value> {
-        this._nodes.push(node);
+    add(node: IGraphNode<ID, Value>): Graph<ID, Value> {
+        if (!this._nodes.get(node.id)) {
+            this._nodes.set(node.id, node);
+        }
         return this;
     }
 
     // TODO: The nodes should be copied, not mutated.
-    static fromArray<Value>(array: GraphNodesArray<Value>, _Node: GraphNodeConstructor<Value> = GraphNode): Graph<Value> {
-        const graph = new Graph<Value>();
+    static fromArray<ID, Value>(array: GraphNodesArray<ID, Value>, _Node: GraphNodeConstructor<ID, Value> = GraphNode as GraphNodeConstructor<ID, Value>): Graph<ID, Value> {
+        const graph = new Graph<ID, Value>();
 
         if (!array.length) {
             return graph;
@@ -27,7 +29,7 @@ export class Graph<Value> implements IGraph<Value> {
 
         const copies = new Map();
         for (const [node, adjacent = []] of array) {
-            let copy: IGraphNode<Value>;
+            let copy: IGraphNode<ID, Value>;
             if (copies.has(node)) {
                 copy = copies.get(node);
             } else {
@@ -37,7 +39,7 @@ export class Graph<Value> implements IGraph<Value> {
             graph.add(copy);
 
             adjacent.forEach(adjacentNode => {
-                let adjacentCopy: IGraphNode<Value>;
+                let adjacentCopy: IGraphNode<ID, Value>;
                 if (copies.has(adjacentNode)) {
                     adjacentCopy = copies.get(adjacentNode);
                 } else {

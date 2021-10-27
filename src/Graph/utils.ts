@@ -1,17 +1,16 @@
-import { IBSTNode } from "src/BST/types";
 import { createQueue } from "../LinkedList/Queue";
-import { IDoublyLinkedNode, IQueue } from "../LinkedList/types";
+import { IQueue } from "../LinkedList/types";
 import { DFSOrder, IGraph, IGraphNode } from "./types";
 
-export interface TraverseBFSParams<Value> {
-    _Queue?: () => IQueue<IGraphNode<Value>>;
-    _Set?: () => Set<IGraphNode<Value>>;
+export interface TraverseBFSParams<ID, Value> {
+    _Queue?: () => IQueue<IGraphNode<ID, Value>>;
+    _Set?: () => Set<IGraphNode<ID, Value>>;
 }
 
-export function* traverseBFS<Value>(
-    graph: IGraph<Value>,
-    { _Queue = createQueue, _Set = () => new Set() }: TraverseBFSParams<Value> = {}
-): Generator<IGraphNode<Value>, undefined, undefined> {
+export function* traverseBFS<ID, Value>(
+    graph: IGraph<ID, Value>,
+    { _Queue = createQueue, _Set = () => new Set() }: TraverseBFSParams<ID, Value> = {}
+): Generator<IGraphNode<ID, Value>, undefined, undefined> {
     const visited = _Set();
     const queue = _Queue();
 
@@ -21,7 +20,7 @@ export function* traverseBFS<Value>(
         };
 
         while (queue.length) {
-            const node = queue.remove() as IGraphNode<Value>;
+            const node = queue.remove() as IGraphNode<ID, Value>;
             visited.add(node);
             node.adjacent.forEach(adjNode => {
                 if (!visited.has(adjNode)) {
@@ -35,16 +34,16 @@ export function* traverseBFS<Value>(
     return;
 };
 
-export interface TraverseDFSParams<Value> {
-    _Set?: () => Set<IGraphNode<Value>>;
+export interface TraverseDFSParams<ID, Value> {
+    _Set?: () => Set<IGraphNode<ID, Value>>;
 }
 
-interface TraverseDFSContext<Value> {
+interface TraverseDFSContext<ID, Value> {
     order: 'pre' | 'post';
-    visited: Set<IGraphNode<Value>>;
+    visited: Set<IGraphNode<ID, Value>>;
 }
 
-function* traverseDFSNode<Value>(node: IGraphNode<Value>, context: TraverseDFSContext<Value>): Generator<IGraphNode<Value>, undefined, undefined> {
+function* traverseDFSNode<ID, Value>(node: IGraphNode<ID, Value>, context: TraverseDFSContext<ID, Value>): Generator<IGraphNode<ID, Value>, undefined, undefined> {
     const { order, visited } = context;
 
     if (order === 'pre') {
@@ -65,7 +64,7 @@ function* traverseDFSNode<Value>(node: IGraphNode<Value>, context: TraverseDFSCo
     return;
 }
 
-export function* traverseDFS<Value>(graph: IGraph<Value>, order: DFSOrder, {_Set = () => new Set() }: TraverseDFSParams<Value> = {}): Generator<IGraphNode<Value>, undefined, undefined> {
+export function* traverseDFS<ID, Value>(graph: IGraph<ID, Value>, order: DFSOrder, {_Set = () => new Set() }: TraverseDFSParams<ID, Value> = {}): Generator<IGraphNode<ID, Value>, undefined, undefined> {
     const context = { order, visited: _Set() };
 
     for (const currentRoot of graph.nodes) {

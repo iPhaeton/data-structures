@@ -1,29 +1,30 @@
-export interface IAdjacentStorage<Value> extends Iterable<IGraphNode<Value>> {
-    add(node: IGraphNode<Value>): IAdjacentStorage<Value>;
-    delete(node: IGraphNode<Value>): boolean;
-    has(node: IGraphNode<Value>): boolean;
-    forEach(callbackfn: (value: IGraphNode<Value>, value2: IGraphNode<Value>, set: IAdjacentStorage<Value>) => void, thisArg?: any): void;
+export interface IAdjacentStorage<ID, Value> extends Iterable<IGraphNode<ID, Value>> {
+    add(node: IGraphNode<ID, Value>): IAdjacentStorage<ID, Value>;
+    delete(node: IGraphNode<ID, Value>): boolean;
+    has(node: IGraphNode<ID, Value>): boolean;
+    forEach(callbackfn: (value: IGraphNode<ID, Value>, value2: IGraphNode<ID, Value>, set: IAdjacentStorage<ID, Value>) => void, thisArg?: any): void;
 }
 
-export interface AdjacentStorageConstructor<Value> {
-    new(): IAdjacentStorage<Value>;
+export interface AdjacentStorageConstructor<ID, Value> {
+    new(): IAdjacentStorage<ID, Value>;
 }
 
-export interface IGraphNode<Value> {
+export interface IGraphNode<ID, Value> {
+    id: ID;
     value: Value;
-    adjacent: IAdjacentStorage<Value>;
+    adjacent: IAdjacentStorage<ID, Value>;
 }
 
-export interface GraphNodeConstructor<Value> {
-    new(_value: Value, _AdjacentStorage?: AdjacentStorageConstructor<Value>): IGraphNode<Value>;
-    copy: (node: IGraphNode<Value>) => IGraphNode<Value>;
+export interface GraphNodeConstructor<ID, Value> {
+    new(_value: Value, _AdjacentStorage?: AdjacentStorageConstructor<ID, Value>): IGraphNode<ID, Value>;
+    copy: (node: IGraphNode<ID, Value>) => IGraphNode<ID, Value>;
 }
 
-export interface IGraph<Value> {
-    nodes: IGraphNode<Value>[];
-    add: (node: IGraphNode<Value>) => IGraph<Value>;
+export interface IGraph<ID, Value> {
+    nodes: IterableIterator<IGraphNode<ID, Value>>;
+    add: (node: IGraphNode<ID, Value>) => IGraph<ID, Value>;
 }
 
-export type GraphNodesArray<Value> = [IGraphNode<Value>, IGraphNode<Value>[]?][];
+export type GraphNodesArray<ID, Value> = [IGraphNode<ID, Value>, IGraphNode<ID, Value>[]?][];
 
 export type DFSOrder = 'pre' | 'post';

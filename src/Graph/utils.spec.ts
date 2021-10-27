@@ -5,13 +5,13 @@ import { traverseBFS, traverseDFS } from "./utils";
 describe('Graph utils', () => {
     describe('traverseBFS', () => {
         it('should traverse a graph nodes in the BFS way', () => {
-            const node1 = new GraphNode<number>(1);
-            const node2 = new GraphNode<number>(2);
-            const node3 = new GraphNode<number>(3);
-            const node4 = new GraphNode<number>(4);
-            const node5 = new GraphNode<number>(5);
-            const node6 = new GraphNode<number>(6);
-            const node7 = new GraphNode<number>(7);
+            const node1 = new GraphNode<number, number>(1, 1);
+            const node2 = new GraphNode<number, number>(2, 2);
+            const node3 = new GraphNode<number, number>(3, 3);
+            const node4 = new GraphNode<number, number>(4, 4);
+            const node5 = new GraphNode<number, number>(5, 5);
+            const node6 = new GraphNode<number, number>(6, 6);
+            const node7 = new GraphNode<number, number>(7, 7);
 
             const graph = Graph.fromArray([
                 [node1, [node3]],
@@ -39,13 +39,13 @@ describe('Graph utils', () => {
 
     describe('traverseDFS', () => {
         it('should traverse a graph nodes in the DFS pre-order way', () => {
-            const node1 = new GraphNode<number>(1);
-            const node2 = new GraphNode<number>(2);
-            const node3 = new GraphNode<number>(3);
-            const node4 = new GraphNode<number>(4);
-            const node5 = new GraphNode<number>(5);
-            const node6 = new GraphNode<number>(6);
-            const node7 = new GraphNode<number>(7);
+            const node1 = new GraphNode<number, number>(1, 1);
+            const node2 = new GraphNode<number, number>(2, 2);
+            const node3 = new GraphNode<number, number>(3, 3);
+            const node4 = new GraphNode<number, number>(4, 4);
+            const node5 = new GraphNode<number, number>(5, 5);
+            const node6 = new GraphNode<number, number>(6, 6);
+            const node7 = new GraphNode<number, number>(7, 7);
 
             const graph = Graph.fromArray([
                 [node1, [node3]],
@@ -71,13 +71,13 @@ describe('Graph utils', () => {
         });
 
         it('should traverse a graph nodes in the DFS post-order way', () => {
-            const node1 = new GraphNode<number>(1);
-            const node2 = new GraphNode<number>(2);
-            const node3 = new GraphNode<number>(3);
-            const node4 = new GraphNode<number>(4);
-            const node5 = new GraphNode<number>(5);
-            const node6 = new GraphNode<number>(6);
-            const node7 = new GraphNode<number>(7);
+            const node1 = new GraphNode<number, number>(1, 1);
+            const node2 = new GraphNode<number, number>(2, 2);
+            const node3 = new GraphNode<number, number>(3, 3);
+            const node4 = new GraphNode<number, number>(4, 4);
+            const node5 = new GraphNode<number, number>(5, 5);
+            const node6 = new GraphNode<number, number>(6, 6);
+            const node7 = new GraphNode<number, number>(7, 7);
 
             const graph = Graph.fromArray([
                 [node1, [node3]],
