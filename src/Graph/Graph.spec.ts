@@ -44,4 +44,23 @@ describe('Graph', () => {
             expect(graph.get(node1.id)?.adjacent.has(graph.get(node4.id) as any)).toBe(false);
         });
     });
+
+    describe('removeEdge', () => {
+        it('should remove an edge from the graph', () => {
+            const node1 = new GraphNode<number, number>(1, 1);
+            const node2 = new GraphNode<number, number>(2, 2);
+            const node3 = new GraphNode<number, number>(3, 3);
+            const node4 = new GraphNode<number, number>(4, 4);
+
+            const graph = Graph.fromArray([
+                [node1, [node2]],
+                [node2, [node1]],
+                [node3, [node2]],
+                [node4, []],
+            ]);
+
+            expect(graph.removeEdge(node2.id, node1.id)).toBe(graph);
+            expect(graph.get(node2.id)?.adjacent.has(graph.get(node1.id) as any)).toBe(false);
+        });
+    });
 });

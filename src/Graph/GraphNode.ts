@@ -28,6 +28,11 @@ export class GraphNode<ID, Value> implements IGraphNode<ID, Value> {
         return node;
     }
 
+    remove(node: IGraphNode<ID, Value>): IGraphNode<ID, Value> {
+        this._adjacent.delete(node);
+        return node;
+    }
+
     static copy<ID, Value>(node: IGraphNode<ID, Value>, _AdjacentStorage: AdjacentStorageConstructor<ID, Value> = Set): GraphNode<ID, Value> {
         return new GraphNode(node.id, node.value, _AdjacentStorage);
     }
