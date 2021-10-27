@@ -26,6 +26,7 @@ export interface IGraph<ID, Value> {
     nodes: IterableIterator<IGraphNode<ID, Value>>;
     add: (node: IGraphNode<ID, Value>) => IGraph<ID, Value>;
     get: (id: ID) => IGraphNode<ID, Value> | undefined;
+    remove: (id: ID) => Value | undefined;
     addEdge: (id1: ID, id2: ID) => IGraph<ID, Value>;
     removeEdge: (id1: ID, id2: ID) => IGraph<ID, Value>;
 }

@@ -23,6 +23,19 @@ export class Graph<ID, Value> implements IGraph<ID, Value> {
         return this._nodes.get(id);
     }
 
+    remove(id: ID): Value | undefined {
+        const nodeToDelete = this.get(id);
+
+        if (nodeToDelete) {
+            this._nodes.delete(id);
+            for (const node of this.nodes) {
+                node.remove(nodeToDelete);
+            }
+        }
+
+        return nodeToDelete?.value;
+    }
+
     addEdge(id1: ID, id2: ID): Graph<ID, Value> {
         const node1 = this.get(id1);
         const node2 = this.get(id2);
