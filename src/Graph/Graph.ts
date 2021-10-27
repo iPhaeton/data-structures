@@ -19,6 +19,19 @@ export class Graph<ID, Value> implements IGraph<ID, Value> {
         return this;
     }
 
+    addEdge(id1: ID, id2: ID): Graph<ID, Value> {
+        const node1 = this.get(id1);
+        const node2 = this.get(id2);
+        if (node1 && node2) {
+            node1.add(node2);
+        }
+        return this;
+    }
+
+    get(id: ID): IGraphNode<ID, Value> | undefined {
+        return this._nodes.get(id);
+    }
+
     // TODO: The nodes should be copied, not mutated.
     static fromArray<ID, Value>(array: GraphNodesArray<ID, Value>, _Node: GraphNodeConstructor<ID, Value> = GraphNode as GraphNodeConstructor<ID, Value>): Graph<ID, Value> {
         const graph = new Graph<ID, Value>();

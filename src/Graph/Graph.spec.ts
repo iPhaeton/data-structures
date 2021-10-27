@@ -23,5 +23,25 @@ describe('Graph', () => {
         expect(valuesArray([...nodes[0].adjacent])).toEqual(valuesArray([node2, node3]));
         expect(valuesArray([...nodes[1].adjacent])).toEqual(valuesArray([node1]));
         expect(valuesArray([...nodes[2].adjacent])).toEqual(valuesArray([node2, node4]));
-    })
+    });
+
+    describe('addEdge', () => {
+        it('should add an edge to the graph', () => {
+            const node1 = new GraphNode<number, number>(1, 1);
+            const node2 = new GraphNode<number, number>(2, 2);
+            const node3 = new GraphNode<number, number>(3, 3);
+            const node4 = new GraphNode<number, number>(4, 4);
+
+            const graph = Graph.fromArray([
+                [node1, [node2]],
+                [node2, [node1]],
+                [node3, [node2]],
+                [node4, []],
+            ]);
+
+            expect(graph.addEdge(node4.id, node1.id)).toBe(graph);
+            expect(graph.get(node4.id)?.adjacent.has(graph.get(node1.id) as any)).toBe(true);
+            expect(graph.get(node1.id)?.adjacent.has(graph.get(node4.id) as any)).toBe(false);
+        });
+    });
 });

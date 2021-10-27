@@ -13,6 +13,7 @@ export interface IGraphNode<ID, Value> {
     id: ID;
     value: Value;
     adjacent: IAdjacentStorage<ID, Value>;
+    add: (node: IGraphNode<ID, Value>) => IGraphNode<ID, Value>;
 }
 
 export interface GraphNodeConstructor<ID, Value> {
@@ -23,6 +24,8 @@ export interface GraphNodeConstructor<ID, Value> {
 export interface IGraph<ID, Value> {
     nodes: IterableIterator<IGraphNode<ID, Value>>;
     add: (node: IGraphNode<ID, Value>) => IGraph<ID, Value>;
+    get: (id: ID) => IGraphNode<ID, Value> | undefined;
+    addEdge: (id1: ID, id2: ID) => IGraph<ID, Value>;
 }
 
 export type GraphNodesArray<ID, Value> = [IGraphNode<ID, Value>, IGraphNode<ID, Value>[]?][];

@@ -23,6 +23,11 @@ export class GraphNode<ID, Value> implements IGraphNode<ID, Value> {
         return this._adjacent;
     }
 
+    add(node: IGraphNode<ID, Value>): IGraphNode<ID, Value> {
+        this._adjacent.add(node);
+        return node;
+    }
+
     static copy<ID, Value>(node: IGraphNode<ID, Value>, _AdjacentStorage: AdjacentStorageConstructor<ID, Value> = Set): GraphNode<ID, Value> {
         return new GraphNode(node.id, node.value, _AdjacentStorage);
     }
