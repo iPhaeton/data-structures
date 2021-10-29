@@ -1,5 +1,6 @@
+import { createStack } from "src/LinkedList/Stack";
 import { createQueue } from "../LinkedList/Queue";
-import { IQueue } from "../LinkedList/types";
+import { IQueue, IStack } from "../LinkedList/types";
 import { DFSOrder, IGraph, IGraphNode } from "./types";
 
 export interface TraverseBFSParams<ID, Value> {
@@ -64,7 +65,7 @@ function* traverseDFSNode<ID, Value>(node: IGraphNode<ID, Value>, context: Trave
     return;
 }
 
-export function* traverseDFS<ID, Value>(graph: IGraph<ID, Value>, order: DFSOrder, {_Set = () => new Set() }: TraverseDFSParams<ID, Value> = {}): Generator<IGraphNode<ID, Value>, undefined, undefined> {
+export function* traverseDFS<ID, Value>(graph: IGraph<ID, Value>, order: DFSOrder, { _Set = () => new Set() }: TraverseDFSParams<ID, Value> = {}): Generator<IGraphNode<ID, Value>, undefined, undefined> {
     const context = { order, visited: _Set() };
 
     for (const currentRoot of graph.nodes) {
@@ -75,6 +76,39 @@ export function* traverseDFS<ID, Value>(graph: IGraph<ID, Value>, order: DFSOrde
             };
         };
     };
+
+    return;
+};
+
+export interface TraverseDFSParams<ID, Value> {
+    _Stack?: () => IStack<IGraphNode<ID, Value>>;
+    _Set?: () => Set<IGraphNode<ID, Value>>;
+}
+
+export function* traverseDFSIteratively<ID, Value>(
+    graph: IGraph<ID, Value>,
+    { _Stack = createStack, _Set = () => new Set() }: TraverseDFSParams<ID, Value> = {}
+): Generator<IGraphNode<ID, Value>, undefined, undefined> {
+    const visited = _Set();
+    const queue = _Stack();
+
+    for (const currentRoot of graph.nodes) {
+        if (!visited.has(currentRoot)) {
+            queue.add(currentRoot);
+        };
+
+        while (queue.length) {
+            const node = queue.remove() as IGraphNode<ID, Value>;
+            visited.add(node);
+            node.adjacent.forEach(adjNode => {
+                if (!visited.has(adjNode)) {
+                    queue.add(adjNode)
+                };
+            });
+
+            yield node;
+        };
+    }
 
     return;
 };
