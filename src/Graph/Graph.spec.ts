@@ -20,9 +20,9 @@ describe('Graph', () => {
         const nodes = [...graph.nodes];
 
         expect(valuesArray(nodes)).toEqual(valuesArray([node1, node2, node3]));
-        expect(valuesArray([...nodes[0].adjacent])).toEqual(valuesArray([node2, node3]));
-        expect(valuesArray([...nodes[1].adjacent])).toEqual(valuesArray([node1]));
-        expect(valuesArray([...nodes[2].adjacent])).toEqual(valuesArray([node2, node4]));
+        expect(valuesArray([...nodes[0].adjacent.keys()])).toEqual(valuesArray([node2, node3]));
+        expect(valuesArray([...nodes[1].adjacent.keys()])).toEqual(valuesArray([node1]));
+        expect(valuesArray([...nodes[2].adjacent.keys()])).toEqual(valuesArray([node2, node4]));
     });
 
     describe('remove', () => {

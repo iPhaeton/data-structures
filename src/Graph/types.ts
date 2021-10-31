@@ -1,5 +1,6 @@
-export interface IAdjacentStorage<ID, Value> extends Iterable<IGraphNode<ID, Value>> {
-    add(node: IGraphNode<ID, Value>): IAdjacentStorage<ID, Value>;
+export interface IAdjacentStorage<ID, Value> extends Iterable<[IGraphNode<ID, Value>, number]> {
+    keys: () => Iterable<IGraphNode<ID, Value>>;
+    set(node: IGraphNode<ID, Value>, weight: number): IAdjacentStorage<ID, Value>;
     delete(node: IGraphNode<ID, Value>): boolean;
     has(node: IGraphNode<ID, Value>): boolean;
     forEach(callbackfn: (value: IGraphNode<ID, Value>, value2: IGraphNode<ID, Value>, set: IAdjacentStorage<ID, Value>) => void, thisArg?: any): void;
@@ -13,7 +14,7 @@ export interface IGraphNode<ID, Value> {
     id: ID;
     value: Value;
     adjacent: IAdjacentStorage<ID, Value>;
-    add: (node: IGraphNode<ID, Value>) => IGraphNode<ID, Value>;
+    add: (node: IGraphNode<ID, Value>, weight?: number) => IGraphNode<ID, Value>;
     remove: (node: IGraphNode<ID, Value>) => IGraphNode<ID, Value>;
 }
 
@@ -24,7 +25,7 @@ export interface GraphNodeConstructor<ID, Value> {
 
 export interface IGraph<ID, Value> {
     nodes: IterableIterator<IGraphNode<ID, Value>>;
-    add: (node: IGraphNode<ID, Value>) => IGraph<ID, Value>;
+    add: (node: IGraphNode<ID, Value>, weight?: number) => IGraph<ID, Value>;
     get: (id: ID) => IGraphNode<ID, Value> | undefined;
     remove: (id: ID) => Value | undefined;
     addEdge: (id1: ID, id2: ID) => IGraph<ID, Value>;

@@ -36,11 +36,11 @@ export class Graph<ID, Value> implements IGraph<ID, Value> {
         return nodeToDelete?.value;
     }
 
-    addEdge(id1: ID, id2: ID): Graph<ID, Value> {
+    addEdge(id1: ID, id2: ID, weight: number = 1): Graph<ID, Value> {
         const node1 = this.get(id1);
         const node2 = this.get(id2);
         if (node1 && node2) {
-            node1.add(node2);
+            node1.add(node2, weight);
         }
         return this;
     }
@@ -81,7 +81,7 @@ export class Graph<ID, Value> implements IGraph<ID, Value> {
                     adjacentCopy = _Node.copy(adjacentNode);
                     copies.set(adjacentNode, adjacentCopy);
                 }
-                copy.adjacent.add(adjacentCopy);
+                copy.adjacent.set(adjacentCopy, 1);
             });
         }
 

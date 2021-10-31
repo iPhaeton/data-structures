@@ -23,11 +23,11 @@ export function* traverseBFS<ID, Value>(
         while (queue.length) {
             const node = queue.remove() as IGraphNode<ID, Value>;
             visited.add(node);
-            node.adjacent.forEach(adjNode => {
+            for (const adjNode of node.adjacent.keys()) {
                 if (!visited.has(adjNode)) {
                     queue.add(adjNode)
                 };
-            });
+            }
             yield node;
         };
     }
@@ -51,7 +51,7 @@ function* traverseDFSNode<ID, Value>(node: IGraphNode<ID, Value>, context: Trave
         yield node;
     }
 
-    for (const adjNode of node.adjacent) {
+    for (const adjNode of node.adjacent.keys()) {
         if (!visited.has(adjNode)) {
             visited.add(adjNode);
             yield* traverseDFSNode(adjNode, context);
@@ -100,12 +100,11 @@ export function* traverseDFSIteratively<ID, Value>(
         while (queue.length) {
             const node = queue.remove() as IGraphNode<ID, Value>;
             visited.add(node);
-            node.adjacent.forEach(adjNode => {
+            for (const adjNode of node.adjacent.keys()) {
                 if (!visited.has(adjNode)) {
                     queue.add(adjNode)
                 };
-            });
-
+            }
             yield node;
         };
     }
