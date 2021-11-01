@@ -1,6 +1,6 @@
 import { Graph } from "./Graph/Graph";
 import { GraphNode } from "./Graph/GraphNode";
-import { traverseBFS } from "./Graph/utils";
+import { traverseBFS } from "./Graph/traverse";
 
 const node1 = new GraphNode<number>(1);
 const node2 = new GraphNode<number>(2);

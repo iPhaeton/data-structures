@@ -1,6 +1,6 @@
 import { Graph } from "./Graph";
 import { GraphNode } from "./GraphNode";
-import { traverseBFS, traverseDFS, traverseDFSIteratively } from "./utils";
+import { traverseBFS, traverseDFS, traverseDFSIteratively } from "./traverse";
 
 describe('Graph utils', () => {
     describe('traverseBFS', () => {
