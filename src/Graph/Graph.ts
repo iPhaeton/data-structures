@@ -63,7 +63,7 @@ export class Graph<ID, Value> implements IGraph<ID, Value> {
         }
 
         const copies = new Map();
-        for (const [node, adjacent = []] of array) {
+        for (const [node, adjacent = [], weights = []] of array) {
             let copy: IGraphNode<ID, Value>;
             if (copies.has(node)) {
                 copy = copies.get(node);
@@ -73,7 +73,9 @@ export class Graph<ID, Value> implements IGraph<ID, Value> {
             }
             graph.add(copy);
 
-            adjacent.forEach(adjacentNode => {
+            for (let i = 0; i < adjacent.length; i++) {
+                const adjacentNode = adjacent[i];
+                const weight = weights[i];
                 let adjacentCopy: IGraphNode<ID, Value>;
                 if (copies.has(adjacentNode)) {
                     adjacentCopy = copies.get(adjacentNode);
@@ -81,9 +83,9 @@ export class Graph<ID, Value> implements IGraph<ID, Value> {
                     adjacentCopy = _Node.copy(adjacentNode);
                     copies.set(adjacentNode, adjacentCopy);
                 }
-                copy.adjacent.set(adjacentCopy, 1);
-            });
-        }
+                copy.adjacent.set(adjacentCopy, weight);
+            };
+        };
 
         return graph;
     };
