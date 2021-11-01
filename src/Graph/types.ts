@@ -1,3 +1,5 @@
+import { IHeap } from '../Heap/types';
+
 export interface IAdjacentStorage<ID, Value> extends Iterable<[IGraphNode<ID, Value>, number]> {
     keys: () => Iterable<IGraphNode<ID, Value>>;
     set(node: IGraphNode<ID, Value>, weight: number): IAdjacentStorage<ID, Value>;
@@ -32,6 +34,17 @@ export interface IGraph<ID, Value> {
     removeEdge: (id1: ID, id2: ID) => IGraph<ID, Value>;
 }
 
-export type GraphNodesArray<ID, Value> = [IGraphNode<ID, Value>, IGraphNode<ID, Value>[]?][];
+export type GraphNodesArray<ID, Value> = [IGraphNode<ID, Value>, IGraphNode<ID, Value>[]?, number[]?][];
 
 export type DFSOrder = 'pre' | 'post';
+
+export interface DijkstraHeapValue<ID> {
+    nodeId: ID,
+    cost: number,
+};
+
+export interface DijkstraParams<ID, Value> {
+    createHeap?: () => IHeap<DijkstraHeapValue<ID>>;
+};
+
+export type DijkstraResult<ID> = Map<ID, { parent: ID, cost: number }>;
