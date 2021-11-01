@@ -25,6 +25,37 @@ describe('Graph', () => {
         expect(valuesArray([...nodes[2].adjacent.keys()])).toEqual(valuesArray([node2, node4]));
     });
 
+    it('should create a weighted graph from an array of nodes', () => {
+        const node1 = new GraphNode<string, string>('A', 'A');
+        const node2 = new GraphNode<string, string>('B', 'B');
+        const node3 = new GraphNode<string, string>('C', 'C');
+        const node4 = new GraphNode<string, string>('D', 'D');
+
+        const graph = Graph.fromArray<string, string>([
+            [node1, [node2, node3], [3, 7]],
+            [node2, [node1, node3, node4], [1, 3, 1]],
+            [node3, [node4], [1]],
+            [node4, [node3], [1]],
+        ]);
+
+        const nodes = [...graph.nodes];
+        expect(nodes[0].adjacent).toEqual(new Map([
+            [nodes[1], 3],
+            [nodes[2], 7],
+        ]));
+        expect(nodes[1].adjacent).toEqual(new Map([
+            [nodes[0], 1],
+            [nodes[2], 3],
+            [nodes[3], 1],
+        ]));
+        expect(nodes[2].adjacent).toEqual(new Map([
+            [nodes[3], 1],
+        ]));
+        expect(nodes[3].adjacent).toEqual(new Map([
+            [nodes[2], 1],
+        ]));
+    });
+
     describe('remove', () => {
         it('should remove a node from th graph', () => {
             const node1 = new GraphNode<number, number>(1, 1);
