@@ -49,14 +49,14 @@ export interface DijkstraParams<ID> {
     createHeap?: () => IHeap<DijkstraHeapValue<ID>>;
 };
 
-export interface DijkstraResultForNode<ID> {
-    parent: ID | null,
-    cost: number
+export interface ShortestPathResultForNode<ID> {
+    parent: ID | null;
+    cost: number;
 }
 
 export interface RelaxationResult<ID> {
-    result: DijkstraResultForNode<ID>;
+    result: ShortestPathResultForNode<ID>;
     updated: boolean;
 }
 
-export type DijkstraResult<ID> = Map<ID, DijkstraResultForNode<ID>>;
+export type ShortestPathResult<ID> = Map<ID, ShortestPathResultForNode<ID>>;

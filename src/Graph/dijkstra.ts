@@ -1,5 +1,5 @@
 import { Heap } from "src/Heap/Heap";
-import { DijkstraHeapValue, DijkstraParams, DijkstraResult, DijkstraResultForNode, IGraph, RelaxationResult } from "./types";
+import { DijkstraHeapValue, DijkstraParams, ShortestPathResult, ShortestPathResultForNode, IGraph, RelaxationResult } from "./types";
 
 const defaultDijkstraResultForNode = {
     parent: null,
@@ -7,8 +7,8 @@ const defaultDijkstraResultForNode = {
 };
 
 const relax = <ID>(
-    currentResult: DijkstraResultForNode<ID> = defaultDijkstraResultForNode,
-    candidateResult: DijkstraResultForNode<ID> = defaultDijkstraResultForNode,
+    currentResult: ShortestPathResultForNode<ID> = defaultDijkstraResultForNode,
+    candidateResult: ShortestPathResultForNode<ID> = defaultDijkstraResultForNode,
 ): RelaxationResult<ID> => {
     if (candidateResult.cost < currentResult.cost) {
         return { result: candidateResult, updated: true };
@@ -23,10 +23,10 @@ export const dijkstra = <ID, Value>(
     {
         createHeap = () => new Heap<DijkstraHeapValue<ID>>('min', (a, b) => a.cost - b.cost),
     }: DijkstraParams<ID> = {},
-): DijkstraResult<ID> => {
+): ShortestPathResult<ID> => {
     const heap = createHeap();
     const visited = new Set();
-    const result = new Map<ID, DijkstraResultForNode<ID>>();
+    const result = new Map<ID, ShortestPathResultForNode<ID>>();
 
     heap.insert({ nodeId: rootId, cost: 0 });
     result.set(rootId, { parent: null, cost: 0 })

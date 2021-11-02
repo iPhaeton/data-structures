@@ -23,6 +23,6 @@ describe('dijkstra', () => {
             ['B', { parent: 'A', cost: 3 }],
             ['C', { parent: 'D', cost: 5 }],
             ['D', { parent: 'B', cost: 4 }],
-        ]))
+        ]));
     });
 });
