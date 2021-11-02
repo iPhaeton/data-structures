@@ -18,7 +18,7 @@ describe('dijkstra', () => {
 
         const result = dijkstra('A', graph);
 
-        expect(result).toBe(new Map([
+        expect(result).toEqual(new Map([
             ['A', { parent: null, cost: 0 }],
             ['B', { parent: 'A', cost: 3 }],
             ['C', { parent: 'D', cost: 5 }],

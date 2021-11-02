@@ -12,6 +12,10 @@ export class Graph<ID, Value> implements IGraph<ID, Value> {
         return this._nodes.values();
     }
 
+    get size(): number {
+        return this._nodes.size;
+    }
+
     add(node: IGraphNode<ID, Value>): Graph<ID, Value> {
         if (!this._nodes.get(node.id)) {
             this._nodes.set(node.id, node);

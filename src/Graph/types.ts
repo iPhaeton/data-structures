@@ -2,6 +2,7 @@ import { IHeap } from '../Heap/types';
 
 export interface IAdjacentStorage<ID, Value> extends Iterable<[IGraphNode<ID, Value>, number]> {
     keys: () => Iterable<IGraphNode<ID, Value>>;
+    entries: () => Iterable<[IGraphNode<ID, Value>, number]>;
     set(node: IGraphNode<ID, Value>, weight: number): IAdjacentStorage<ID, Value>;
     delete(node: IGraphNode<ID, Value>): boolean;
     has(node: IGraphNode<ID, Value>): boolean;
@@ -27,6 +28,7 @@ export interface GraphNodeConstructor<ID, Value> {
 
 export interface IGraph<ID, Value> {
     nodes: IterableIterator<IGraphNode<ID, Value>>;
+    size: number;
     add: (node: IGraphNode<ID, Value>, weight?: number) => IGraph<ID, Value>;
     get: (id: ID) => IGraphNode<ID, Value> | undefined;
     remove: (id: ID) => Value | undefined;
@@ -43,8 +45,18 @@ export interface DijkstraHeapValue<ID> {
     cost: number,
 };
 
-export interface DijkstraParams<ID, Value> {
+export interface DijkstraParams<ID> {
     createHeap?: () => IHeap<DijkstraHeapValue<ID>>;
 };
 
-export type DijkstraResult<ID> = Map<ID, { parent: ID, cost: number }>;
+export interface DijkstraResultForNode<ID> {
+    parent: ID | null,
+    cost: number
+}
+
+export interface RelaxationResult<ID> {
+    result: DijkstraResultForNode<ID>;
+    updated: boolean;
+}
+
+export type DijkstraResult<ID> = Map<ID, DijkstraResultForNode<ID>>;
