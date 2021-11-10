@@ -1,35 +1,27 @@
-export const coinChange = (denominations: number[], value: number): [number[], number[]] => {
-    const results: number[][][] = [[]];
-    const indices: number[] = [];
-    const parents: number[] = [];
-    // const amount = [];
-
-    const initialResult = [];
-    let k = 0;
-    let result;
-    do {
-        result = k * denominations[0]
-        initialResult.push(result);
-        k++;
-    } while (result < value)
-
+const createArray = (value: number, defaultValue?: number) => {
+    const arr = [];
     for (let i = 0; i <= value; i++) {
-        results[0].push(initialResult);
+        arr.push(defaultValue === undefined ? [] : [defaultValue]);
     }
+    return arr;
+}
 
-    for (let i = 1; i < denominations.length; i++) {
-        if (!results[i]) results.push([]);
+export const coinChange = (denominations: number[], value: number): void => {
+    const results = [[[0]]];
 
-        for (let thisAmount = 0; thisAmount <= value; thisAmount++) {
-            if (!results[i][thisAmount]) results[i].push([]);
+    for (let i = 0; i < denominations.length; i++) {
+        results.push(createArray(value));
 
-            for (let otherAmount = 0; otherAmount <= value; otherAmount++) {
-                const result = results[i - 1][thisAmount][otherAmount] + thisAmount * denominations[i];
-                results[i][thisAmount][otherAmount] = result;
+        for (let k = 0; k <= value; k++) {
+            for (const prevValues of results[i]) {
+                for (const prevValue of prevValues) {
+                    const result = prevValue + k * denominations[i];
+                    if (result > value) continue;
+                    results[i + 1][k].push(result);
+                }
             }
         }
     }
 
-    console.log('***************', results)
-    return [indices, parents];
-};
+    console.log(results);
+}

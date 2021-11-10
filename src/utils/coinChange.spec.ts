@@ -5,9 +5,6 @@ describe('coinChange', () => {
         const value = 27;
         const denominations = [1,5,10,25];
 
-        const [indices, parents] = coinChange(denominations, value);
-
-        console.log('!!!!!!!!!!!', indices);
-        console.log('!!!!!!!!!!!', parents)
+        coinChange(denominations, value);
     });
 });
